@@ -3,6 +3,7 @@ import MainTestPage from '@/components/component/taketest/MainTestPage'
 import TestPage from '@/components/component/taketest/TestPage'
 import { Package2Icon } from '@/components/icons/page'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { getSubmission } from '@/hooks/server/test/results'
 import { getTestU } from '@/hooks/server/test/url'
@@ -24,6 +25,20 @@ console.log(testSubmission)
 
 const test = await getTestU(params.id);
 console.log(test)
+
+
+if(testSubmission.submitted==true){
+  return <>
+  <div className='w-screen h-screen flex flex-col justify-center items-center'>
+  Test already submitted      
+  <Button className='m-5'>
+    <a href="/home" rel="noopener noreferrer">
+      Go Home
+      </a>
+      </Button>
+  </div>
+  </>
+}
 
 
   return (
@@ -52,7 +67,7 @@ Duration ( in minutes ) - {test?.durationMinutes}
 </div>
 
 
-  {test && testSubmission && <MainTestPage test={test} testSubmission={testSubmission} />}
+  {test && testSubmission && !testSubmission.submitted && <MainTestPage test={test} testSubmission={testSubmission} />}
 
 
   </div>

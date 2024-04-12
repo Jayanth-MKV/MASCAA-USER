@@ -47,6 +47,16 @@ import { useRouter } from 'next/navigation';
 
 const MainTestPage = ({ test, testSubmission }: any) => {
 
+    if(testSubmission.submitted){
+        return <>
+        <div className='w-screen h-screen flex justify-center items-center'>
+        Test already submitted
+        </div>
+        </>
+      }
+
+    const [index, setindex] = useState(0);
+
     const [isOk, setisOk] = useState(false);
     const [answer, setanswer] = useState("");
     const [data, setdata] = useState([]);
@@ -112,10 +122,22 @@ const MainTestPage = ({ test, testSubmission }: any) => {
     )
 
     const handleAudioAnswer=(data:any)=>{
+        const formData = new FormData();
+        formData.append("file",data.file, 'filename.wav');
+        formData.append("text",data.text);
+
+        console.log(formData.getAll('file'));
+        console.log(formData.getAll('text'));
+
         const payload = {
-...data
+            formData:formData,
+index:index.toString(),
+testId:test._id,
+id:testSubmission._id,
+type:"AUDIO",
         }
         console.log("subq  audio answer: ",payload);
+        mutateAudio({...payload});
     }
 
     const findMax=(obj:any)=>{
@@ -133,20 +155,28 @@ const MainTestPage = ({ test, testSubmission }: any) => {
         const payload = {
             answer:answer,
             time:time.toString(),
-            emotion
+            emotion,
+            index:index.toString(),
+            id:testSubmission._id,
+            type:"TEXT",
         }
         console.log("subq text answer: ",payload);
+        setanswer("");
+
+        mutateText({...payload});
     }
 
     const handleSubmit = ()=>{
         console.log("test submitted")
+        window.localStorage.removeItem("stopped-area");
+        // mutateSubmit({id:testSubmission._id});
     }
     
 
 
     return (
         <>
-  {isOk && test && testSubmission && <TestPage handleSubmit={handleSubmit} handleAudioAnswer={handleAudioAnswer} handleTextAnswer={handleTextAnswer} answer={answer} setanswer={setanswer} test={test} testSubmission={testSubmission} />}
+  {isOk && test && testSubmission && <TestPage index={index} setindex={setindex} handleSubmit={handleSubmit} handleAudioAnswer={handleAudioAnswer} handleTextAnswer={handleTextAnswer} answer={answer} setanswer={setanswer} test={test} testSubmission={testSubmission} />}
 <div className='row-span-1 col-span-1 overflow-y-scroll scrollbar-hide'>
   <CamViewNoDialog  data={data} setData={setdata} videoHeight={100} videoWidth={150} setisOk={setisOk} isOk={isOk} />
 </div>

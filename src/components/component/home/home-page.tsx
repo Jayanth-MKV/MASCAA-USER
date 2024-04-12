@@ -119,7 +119,7 @@ export function HomePage({ children }: { children: ReactNode }) {
           </Link>
           <div className="w-full flex-1 h-full ">
             <h1 className=" mt-7 md:hidden block text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">MASCAA</h1>
-            <h1 className="mt-9  hidden md:block text-end text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Instructor Dashboard</h1>
+            <h1 className="mt-9  hidden md:block text-end text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Member Dashboard</h1>
           </div>
           <DrawerDemo>
 

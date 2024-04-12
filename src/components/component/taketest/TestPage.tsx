@@ -2,15 +2,18 @@
 import CamView from '@/components/component/taketest/CamView';
 import { Button } from '@/components/ui/button';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Separator } from '@/components/ui/separator';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react'
 import QuestionTimer from './QuestionTimer';
 import { Input } from '@/components/ui/input';
@@ -19,25 +22,26 @@ import AudioAnswer from './Answer';
 
 
 
-const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, handleAudioAnswer, handleSubmit }: any) => {
+const TestPage = ({ answer,index, setindex, setanswer, test, testSubmission, handleTextAnswer, handleAudioAnswer, handleSubmit }: any) => {
   // const params = useParams()
   // console.log(params)
 
   const TIME = 180;
   const [timeLeft, setTimeLeft] = useState(TIME/3);
-
+  const router = useRouter()
+const [pause, setpause] = useState(false)
   // const [isOk, setisOk] = useState(false)
-  const [index, setindex] = useState(0);
   const [questionData, setquestionData] = useState({ topic: "Question Topic", content: " Question Content" })
   const [sub, setsub] = useState({ type: "TEXT" });
   const [AudioOp, setAudioOp] = useState({ text: '', file: null });
+const [lastQuesFilled, setLastQuesFilled] = useState(false);
 
   const handleQuestionChange = useCallback(
     () => {
       console.log(index)
       if (index != testSubmission.answers.length - 1)
         setindex(index + 1);
-      setTimeLeft(TIME)
+      setTimeLeft(TIME/3)
       setsub({ type: "TEXT" });
     },
     [index],
@@ -55,12 +59,33 @@ const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, h
     }
   }
 
-  const handleAudioNext=() => {
+  const handleAudioNext= useCallback(() => {
     handleAudioAnswer(AudioOp);
     handleQuestionChange();
+    setAudioOp({text:'',file:null});
+  },[AudioOp]);
+
+
+  const handleAudioLast= useCallback(() => {
+    handleAudioAnswer(AudioOp);
+    setLastQuesFilled(true);
+    setAudioOp({text:'',file:null});
+  },[AudioOp]);
+
+
+  const handleTextNext= useCallback(() => {
+    handleTextAnswer(TIME/3 - timeLeft);
+    setsub({ type: "AUDIO" });
+    setTimeLeft(TIME-TIME/3)
+  },[answer]);
+
+
+  const handleSubmitNext = () => {
+    console.log("Submit");
+    handleSubmit();
+    window.localStorage.removeItem("stopped-area");
+    router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)
   }
-
-
 
 
 
@@ -70,8 +95,8 @@ const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, h
     console.log(data)
     // const data = JSON.parse(d);
     setindex(data?.index || 0);
-    setsub({ type: (data?.subType || "TEXT") });
-    setTimeLeft(data?.time || TIME);
+    setsub({ type: data?.subType?data.subType: "TEXT" });
+    setTimeLeft(data?.time?data?.time : TIME/3);
   }, []);
 
 
@@ -79,16 +104,20 @@ const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, h
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft(prevTimeLeft => {
+
+        if(pause){
+          return prevTimeLeft;
+        }
         
         setLocal({ index, subType: sub?.type, time: prevTimeLeft });
-        console.log({ index, subType: sub?.type, time: prevTimeLeft })
+        // console.log({ index, subType: sub?.type, time: prevTimeLeft })
         if (prevTimeLeft == TIME - TIME / 3) {
           setsub({ type: "AUDIO" });
         }
         if (prevTimeLeft === 0) {
           clearInterval(interval);
           handleQuestionChange(); // Change to the next question
-          return TIME; // Reset time left for the new question
+          return TIME/3; // Reset time left for the new question
         } else {
           return prevTimeLeft - 1;
         }
@@ -96,7 +125,7 @@ const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, h
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [index]);
+  }, [index,sub]);
 
 
   //   useEffect(()=>{
@@ -118,10 +147,12 @@ const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, h
   // document.addEventListener("visibilitychange", (event) => {
   //   if (document.visibilityState == "visible") {
   //     console.log("tab is active")
+  //     setpause(false);
   //     // alert("you cannot leave the page")
   //   } else {
   //     console.log("tab is inactive")
   //     alert("you cannot leave the page")
+  //     setpause(true);
   //   }
   // });
 
@@ -133,11 +164,11 @@ const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, h
   useEffect(() => {
     const qd = testSubmission?.answers[index];
     setquestionData({ topic: qd?.topic || "Subquestion Topic", content: qd?.content || "Subquestion Content" });
-    console.log(qd)
+    // console.log(qd)
     const sq = testSubmission?.answers[index]?.subQ.filter((item: any) => item?.type == sub?.type)
     if (sq)
       setsub(sq[0]);
-    console.log(sq)
+    // console.log(sq)
     setanswer("");
   }, [index, sub])
 
@@ -148,11 +179,13 @@ const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, h
     if (timeLeft == 0 && index==(testSubmission.answers.length-1)) {
       console.log("submitted");
       handleSubmit();
+      window.localStorage.removeItem("stopped-area");
+      router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)
       return
     }
     if (timeLeft < 3) {
       if (sub?.type == "TEXT") {
-        handleTextAnswer(TIME - timeLeft);
+        handleTextAnswer(TIME/3 - timeLeft);
       }
       if (sub?.type == "AUDIO") {
         handleAudioAnswer(AudioOp);
@@ -253,26 +286,114 @@ const TestPage = ({ answer, setanswer, test, testSubmission, handleTextAnswer, h
 
 
       <div className='row-span-1 col-span-1 flex justify-end p-5'>
-        {index != testSubmission.answers.length - 1 ?
+        {(index != testSubmission.answers.length - 1 || sub.type!="AUDIO") ?
+          (
           sub && sub?.type == "AUDIO" ?
-            <Button onClick={handleAudioNext}>
-              Next
-            </Button>
+          <AudioOpButtons AudioOp={AudioOp} handleAudioNext={handleAudioNext}/>
             :
-            <Button onClick={() => {
-              handleTextAnswer(TIME - timeLeft);
-              setsub({ type: "AUDIO" });
-              setTimeLeft(TIME-TIME/3)
-            }}>
+            ((answer==" " || answer == "") ? (<TextAlert text={"answer"} fn={handleTextNext}>
+            <Button >
+             Next
+           </Button>
+            </TextAlert>)
+              : (<Button onClick={handleTextNext}>
               Next
-            </Button>
-
+            </Button>))
+            )
           :
-          <Button onClick={() => console.log("Submit")}>
-            Submit</Button>}
+          ((AudioOp.text == "" || AudioOp.file == null ) && !lastQuesFilled  ? (
+          <div className='flex items-center'>
+          <AudioAlert text={"audio - SUBMIT TEST"} fn={handleAudioLast}>
+           <Button>
+            Save
+          </Button>
+          </AudioAlert>
+          <Button className='ml-3' disabled={true}>
+            Submit</Button>
+          </div>)
+          :
+          (
+          !lastQuesFilled?<>
+           <Button onClick={handleAudioLast}>
+            Next
+          </Button>
+          <Button disabled={true}>
+            Submit</Button>
+          </>
+          :<>
+          <Button onClick={handleSubmitNext}>
+            Submit</Button>
+            </>
+            )
+          )  
+            
+            }
       </div>
+
+
     </>
   )
 }
 
-export default TestPage
+export default TestPage;
+
+
+
+const AudioOpButtons = ({AudioOp,handleAudioNext}:any)=>{
+
+  return  ((AudioOp.text == "" || AudioOp.file == null)
+            
+  ?<AudioAlert text={"audio"} fn={handleAudioNext}>
+   <Button >
+    Next
+  </Button>
+  </AudioAlert>
+  :<Button onClick={handleAudioNext}>
+    Next
+  </Button>)
+}
+
+
+const TextAlert=({children,text,fn}:any)=>{
+  return <>
+        <AlertDialog>
+        <AlertDialogTrigger>
+          {children}
+        </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Are you sure to submit without {text}?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction onClick={fn}>Next</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+  </>
+}
+
+const AudioAlert=({children,text,fn}:any)=>{
+  return <>
+        <AlertDialog>
+        <AlertDialogTrigger>
+          {children}
+        </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Are you sure to submit {text}?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction onClick={fn}>Next</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+  </>
+}

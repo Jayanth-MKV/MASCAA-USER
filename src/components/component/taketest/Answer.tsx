@@ -5,9 +5,22 @@ import React, { useEffect, useState, useCallback } from 'react'
 import audioWave from "@/img/audio-wave.gif"
 import 'regenerator-runtime/runtime';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Textarea } from '@/components/ui/textarea';
 
-const AudioAnswer = ({AudioOp,setAudioOp,timeLeft}:any) => {
-  const mimeType = "audio/webm";
+
+
+const AudioAnswer = ({AudioOp,setAudioOp}:any) => {
+  const mimeType = "audio/wav";
 
   const [permission, setPermission] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -16,6 +29,7 @@ const AudioAnswer = ({AudioOp,setAudioOp,timeLeft}:any) => {
   const [audioChunks, setAudioChunks] = useState([]);
   const [audio, setAudio] = useState(null);
   const [abortController, setAbortController] = useState(new AbortController());
+const [stt, setstt] = useState("");
 
   const {
     transcript,
@@ -44,13 +58,24 @@ const AudioAnswer = ({AudioOp,setAudioOp,timeLeft}:any) => {
       console.log('Final transcript:', finalTranscript);
       // Process the final transcript
     }
+    setstt(transcript);
+
+  }, [transcript, finalTranscript]);
+
+
+  useEffect(() => {
+    
 
     setAudioOp({
       ...AudioOp,
       text:transcript
     });
 
-  }, [transcript, finalTranscript]);
+
+  }, [stt]);
+
+
+
 
   const getMicrophonePermission = async () => {
     try {
@@ -69,16 +94,26 @@ const AudioAnswer = ({AudioOp,setAudioOp,timeLeft}:any) => {
     getMicrophonePermission();
   }, [])
 
+
+  useEffect(() => {
+    if(audioChunks.length!=0){
+      const audioBlob = new Blob(audioChunks, { type: mimeType });
+      var wavefilefromblob = new File([audioBlob], 'filename.wav',{type: 'audio/wav' });
+      console.log(wavefilefromblob);
+      setAudioOp({...AudioOp,file:wavefilefromblob});  
+    }
+  }, [audioChunks])
+
   const startRecording = useCallback(async () => {
     setRecordingStatus("recording");
     SpeechRecognition.startListening({ continuous: true, language: 'en-IN' }); // Set the language to Indian English
 
     const media = new MediaRecorder(stream, { type: mimeType });
     setMediaRecorder(media);
-    mediaRecorder?.start();
+    media?.start();
 
     let localAudioChunks = [];
-    mediaRecorder.ondataavailable = (event) => {
+    media.ondataavailable = (event) => {
       if (typeof event.data === "undefined" || event.data.size === 0) return;
       localAudioChunks.push(event.data);
     };
@@ -96,9 +131,9 @@ const AudioAnswer = ({AudioOp,setAudioOp,timeLeft}:any) => {
         const audioBlob = new Blob(audioChunks, { type: mimeType });
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudio(audioUrl);
-        var wavefilefromblob = new File([audioBlob], 'filename.wav');
+        var wavefilefromblob = new File([audioBlob], 'filename.wav',{ type: 'audio/wav' });
         console.log(wavefilefromblob);
-        setAudioOp(wavefilefromblob);
+        setAudioOp({...AudioOp,file:wavefilefromblob}); 
         setAudioChunks([]);
       };
     }
@@ -141,11 +176,40 @@ const AudioAnswer = ({AudioOp,setAudioOp,timeLeft}:any) => {
           </div>
         )}
         <div>
-          {transcript}
+        <DialogTranscript transcript={stt} onChange={setstt} />
         </div>
       </div>
     </>
   )
 }
 
-export default AudioAnswer
+export default AudioAnswer;
+
+
+function DialogTranscript({transcript,onChange}:any) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Transcript</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Give your brief explanation in words - for relevancy check</DialogTitle>
+          <DialogDescription>
+            This audio transcription may not be accurate. so, we expect you to correct and brief your saying in 3-5 lines.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex items-center space-x-2">
+        <Textarea value={transcript} onChange={(e)=>onChange(e.target.value)} placeholder="Type your audio transcript here." />
+        </div>
+        <DialogFooter className="sm:justify-start">
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}

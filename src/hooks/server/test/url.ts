@@ -28,7 +28,7 @@ export const submitAudio = async (data: any ) => {
   return await request({
     method: "POST",
     url: `user/submit/audio/${testId}/${index}/${id}`,
-    formData,
+    data:formData,
   });
 };
 
@@ -36,7 +36,7 @@ export const submitText = async (data: any ) => {
   console.log(data)
   return await request({
     method: "POST",
-    url: `${BASE_URL}/updatetext`,
+    url: `submission/text`,
     data,
   });
 };
@@ -55,7 +55,7 @@ export const submitTest = async (data: any ) => {
   console.log(data)
   return await request({
     method: "POST",
-    url: `${BASE_URL}/test/${data.id}`,
+    url: `submission/test/${data.id}`,
     data,
   });
 };

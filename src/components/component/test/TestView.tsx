@@ -28,6 +28,12 @@ const ViewTest = ({ test,userId }:any) => {
   }, [startTime, endTime])
 
 
+  const handleOnStartTest = () => {
+    router.replace(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure?userId=${userId}`);
+    router.refresh();
+  }
+
+
   return (
 
     <div className="md:container mx-auto md:px-4 md:w-[70%]">
@@ -103,11 +109,7 @@ const ViewTest = ({ test,userId }:any) => {
         </CardContent>
       </Card>
       <Card className='mx-auto my-5'>
-        <Button className="w-full" onClick={async () => {
-          router.replace(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure?userId=${userId}`);
-            router.refresh();
-        
-        }}>
+        <Button className="w-full" onClick={handleOnStartTest}>
           <FileTextIcon className="mr-2 h-4 w-4" /> Start Test
         </Button>
       </Card>
