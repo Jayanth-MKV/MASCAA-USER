@@ -107,9 +107,7 @@ const [stt, setstt] = useState("");
   }, [audioChunks])
 
 
-  if (!("MediaRecorder" in window) || !browserSupportsSpeechRecognition) {
-    return <span>The required APIs are not supported in your browser.</span>;
-  }
+
 
   const startRecording = useCallback(async () => {
     setRecordingStatus("recording");
@@ -146,6 +144,11 @@ const [stt, setstt] = useState("");
     }
   }, [mediaRecorder, mimeType, audioChunks, abortController]);
 
+
+  if (!("MediaRecorder" in window) || !browserSupportsSpeechRecognition) {
+    return <span>The required APIs are not supported in your browser.</span>;
+  }
+
   const handleStartRecording = () => {
     startRecording();
     setAbortController(new AbortController()); // Create a new AbortController instance
@@ -155,6 +158,8 @@ const [stt, setstt] = useState("");
     stopRecording();
     setAbortController(new AbortController()); // Create a new AbortController instance
   };
+
+
 
   return (
     <>

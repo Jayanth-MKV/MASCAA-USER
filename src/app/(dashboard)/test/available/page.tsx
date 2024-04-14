@@ -102,7 +102,7 @@ const Page = () => {
         <div className="items-center mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-300 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {data &&
             data?.sort((a: any, b: any) => new Date(b?.updatedAt) - new Date(a?.updatedAt))?.map((test) => (
-              <article className="flex max-w-xl flex-col items-center justify-between">
+              <article key={test?.title} className="flex max-w-xl flex-col items-center justify-between">
                 <Card className='h-[380px] w-[280px] flex flex-col justify-between'>
                   <CardHeader>
                     <CardTitle className='text-2xl overflow-clip max-h-[70px] h-[70px]'>{test.title.toUpperCase()} </CardTitle>
@@ -111,7 +111,7 @@ const Page = () => {
                   <ScrollArea className="w-full p-2 whitespace-nowrap rounded-md border">
                     <CardContent className='flex gap-3 overflow-hidden max-h-[100px] h-fit'>
                       {test?.keywords && test?.keywords.map((k: string) => (
-                        <Badge>{k}</Badge>
+                        <Badge key={k}>{k}</Badge>
                       ))}
                     </CardContent>
                     <ScrollBar orientation="horizontal" />
