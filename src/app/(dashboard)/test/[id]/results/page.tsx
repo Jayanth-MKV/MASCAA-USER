@@ -7,6 +7,7 @@ import React from 'react'
 import Loading from '../../loading';
 import Emotions from '@/components/component/results/Emotions';
 import Reports from '@/components/component/results/Reports';
+import PartialResults from '@/components/component/results/PartialResults';
 
 const Results = async ({ params, searchParams }: {
   params: { id: string }
@@ -14,7 +15,7 @@ const Results = async ({ params, searchParams }: {
 }) => {
 
   const data = await getSubResults(params?.id);
-  // console.log(data);
+  console.log(data);
   const results = data["eval"]["results"];
   // console.log(results);
 
@@ -76,7 +77,7 @@ const Results = async ({ params, searchParams }: {
               <Button>Download</Button>
             </div>
           </div>
-          <Tabs defaultValue="reports" className="space-y-4">
+          <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="confidence analytics" >
@@ -139,13 +140,7 @@ const Results = async ({ params, searchParams }: {
                     </p>
                   </CardContent>
                 </Card>
-                {!notPartial && <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0">
-                    <CardTitle className="text-sm font-bold py-3">
-                      These results are partially evaluated
-                    </CardTitle>
-                  </CardHeader>
-                </Card>}
+                {!notPartial && <PartialResults  id={params?.id} />}
               </div>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
               </div>

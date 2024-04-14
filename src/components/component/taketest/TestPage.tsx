@@ -218,7 +218,7 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
         <div className='flex gap-5 my-5 flex-wrap'>
           {testSubmission && testSubmission.answers.map((item: any, idx: number) => {
             return <>
-              <div>
+              <div key={idx}>
                 <Button className={(idx != index) ? "bg-gray-400" : ""}
                   disabled={idx != index}
                   onClick={() => {
@@ -235,7 +235,7 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
         <div className='flex gap-5 my-5'>
           {testSubmission && testSubmission.answers[index]?.subQ.map((item: any, idx: number) => {
             return <>
-              <div>
+              <div key={idx}>
                 <Button className={(sub.type != item.type) ? "bg-gray-400" : ""}
                   // disabled={sub.type!=item.type}
                   onClick={() => {
@@ -256,9 +256,9 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
 
 
       <div className='row-span-3 col-span-3 overflow-y-scroll scrollbar-hide p-5'>
-        {testSubmission && testSubmission?.answers[index]?.subQ.map((item: any) => {
+        {testSubmission && testSubmission?.answers[index]?.subQ.map((item: any,idx:number) => {
           if (item?.type == sub?.type) {
-            return <div>
+            return <div key={idx}>
               <div className='my-2 text-xl font-semibold'>
                 {item?.title}
               </div>

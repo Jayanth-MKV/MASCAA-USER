@@ -19,7 +19,7 @@ const Reports = ({Eval,Data}:any) => {
     {
       Data && Data.map((item:evalType,idx:number)=>{
         return (
-          <TabsTrigger value={`question${idx}`}>{idx+1}</TabsTrigger>
+          <TabsTrigger key={idx} value={`question${idx}`}>{idx+1}</TabsTrigger>
         )
       })
     }
@@ -27,8 +27,8 @@ const Reports = ({Eval,Data}:any) => {
     {
       Data && Data.map((item:evalType,idx:number)=>{
         return (
-          <TabsContent value={`question${idx}`}>
-            <QuestionResult data={item} />
+          <TabsContent key={idx} value={`question${idx}`}>
+            <QuestionResult idx={idx} id={Eval?.eval?.submissionId} data={item} />
           </TabsContent>
         )
       })

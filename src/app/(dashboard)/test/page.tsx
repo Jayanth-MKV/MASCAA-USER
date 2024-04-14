@@ -22,7 +22,7 @@ import Loading from './loading'
 import NoData from '@/components/component/home/NoData'
 
 
-const page = () => {
+const Page = () => {
   const { toast } = useToast();
   const router = useRouter()
   const pathname = usePathname()
@@ -135,4 +135,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

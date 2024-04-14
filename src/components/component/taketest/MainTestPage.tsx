@@ -46,15 +46,6 @@ import { useRouter } from 'next/navigation';
 
 
 const MainTestPage = ({ test, testSubmission }: any) => {
-
-    if (testSubmission.submitted) {
-        return <>
-            <div className='w-screen h-screen flex justify-center items-center'>
-                Test already submitted
-            </div>
-        </>
-    }
-
     const [index, setindex] = useState(0);
 
     const [isOk, setisOk] = useState(false);
@@ -65,7 +56,27 @@ const MainTestPage = ({ test, testSubmission }: any) => {
     const router = useRouter();
 
 
-    const { mutate: mutateAudio, isPending } = useApiSend(
+
+    const { mutate: mutateAudioTrans } = useApiSend(
+        submitAudioTrans,
+        (data: any) => {
+            console.log(data)
+            toast({
+                title: "success",
+                description: "Audio transcript Submitted!"
+            })
+        },
+        (e: any) => {
+            console.log(e)
+            toast({
+                variant: "destructive",
+                title: "cannot submit audio transcript",
+                description: e?.message
+            })
+        },
+    )
+
+    const { mutate: mutateAudio } = useApiSend(
         submitAudio,
         (data: any) => {
             console.log(data)
@@ -83,6 +94,9 @@ const MainTestPage = ({ test, testSubmission }: any) => {
             })
         },
     )
+
+
+
     const { mutate: mutateText } = useApiSend(
         submitText,
         (data: any) => {
@@ -135,12 +149,21 @@ const MainTestPage = ({ test, testSubmission }: any) => {
             formData: formData,
             index: index.toString(),
             testId: test._id,
-            id: testSubmission._id,
             type: "AUDIO",
+            id: testSubmission._id,
             text: data.text,
         }
+        
+        const tpayload = {
+            index:index.toString(),
+            id: testSubmission._id,
+            text: data.text,    
+        }
+
         console.log("subq  audio answer: ", payload);
+        console.log("subq  audio trans: ", tpayload);
         mutateAudio({ ...payload });
+        mutateAudioTrans({ ...tpayload });
     }
 
 
@@ -177,6 +200,16 @@ const MainTestPage = ({ test, testSubmission }: any) => {
         mutateSubmit({id:testSubmission._id});
     router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)
     }
+
+        
+    if (testSubmission.submitted) {
+        return <>
+            <div className='w-screen h-screen flex justify-center items-center'>
+                Test already submitted
+            </div>
+        </>
+    }
+
 
 
 

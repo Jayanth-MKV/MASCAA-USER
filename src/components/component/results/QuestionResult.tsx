@@ -5,8 +5,10 @@ import EmotionsVideo from './Emotion-video'
 import EmotionsAudio from './Emotion-audio'
 import TimePieChart from './TimePieChart'
 import { Button } from '@/components/ui/button'
+import PartialResultsAudio from './PartialResultsAudio'
+import PartialResultsText from './PartialResultsVideo'
 
-const QuestionResult = ({data}:any) => {
+const QuestionResult = ({idx,id,data}:any) => {
 
 
   return (
@@ -27,11 +29,14 @@ const QuestionResult = ({data}:any) => {
     <CardDescription>taken via the webcam - evaluated using out models</CardDescription>
 </CardHeader>
 <CardContent className='min-h-[400px]'>
-{data.videoEmotion=="" && <div className='font-bold'>
+{data.videoEmotion=="" && 
+<PartialResultsText id={id} index={idx} />
+}
+{/* <div className='font-bold'>
     Video not evaluated - <Button className='ml-5'>
         Revaluate
     </Button>
-    </div>}
+    </div> */}
 {data.videoEmotion && 
 <EmotionsVideo data={[data]}/>
 }
@@ -45,9 +50,7 @@ const QuestionResult = ({data}:any) => {
 <CardContent className='min-h-[400px] flex items-center justify-center'>
 {data.audioEmotion=="" &&
  <div className='font-bold'>
-    Audio not evaluated - <Button className='ml-5'>
-        Revaluate
-    </Button>
+    <PartialResultsAudio id={id} index={idx}/>
     </div>}
 {data.audioEmotion && 
 <EmotionsAudio data={[data]}/>

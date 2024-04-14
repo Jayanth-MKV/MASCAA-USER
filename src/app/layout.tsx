@@ -5,7 +5,7 @@ import Providers from "@/providers/sessionprovider";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as T } from "@/components/ui/sonner"
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] , display: 'swap', adjustFontFallback: false});
 
 export const metadata: Metadata = {
   title: "MASCAA Student",

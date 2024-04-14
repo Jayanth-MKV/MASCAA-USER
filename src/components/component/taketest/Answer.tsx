@@ -45,15 +45,12 @@ const [stt, setstt] = useState("");
     abortController: abortController, // Use the abortController instance
   });
 
-  if (!("MediaRecorder" in window) || !browserSupportsSpeechRecognition) {
-    return <span>The required APIs are not supported in your browser.</span>;
-  }
-
+  
   useEffect(() => {
     if (transcript) {
       console.log('Partial transcript:', transcript);
     }
-
+    
     if (finalTranscript) {
       console.log('Final transcript:', finalTranscript);
       // Process the final transcript
@@ -63,24 +60,25 @@ const [stt, setstt] = useState("");
       ...AudioOp,
       text:transcript
     });
-
+    
   }, [transcript, finalTranscript]);
 
-
+  
   useEffect(() => {
     
-
+    
     setAudioOp({
       ...AudioOp,
       text:stt
     });
-
-
+    
+    
   }, [stt]);
+  
+  
 
-
-
-
+  
+  
   const getMicrophonePermission = async () => {
     try {
       const streamData = await navigator.mediaDevices.getUserMedia({
@@ -107,6 +105,11 @@ const [stt, setstt] = useState("");
       setAudioOp({...AudioOp,file:wavefilefromblob});  
     }
   }, [audioChunks])
+
+
+  if (!("MediaRecorder" in window) || !browserSupportsSpeechRecognition) {
+    return <span>The required APIs are not supported in your browser.</span>;
+  }
 
   const startRecording = useCallback(async () => {
     setRecordingStatus("recording");

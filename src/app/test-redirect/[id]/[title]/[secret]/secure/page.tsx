@@ -20,7 +20,7 @@ import React, { useEffect, useState } from 'react'
 
 
 
-const page = () => {
+const Page = () => {
 
   const params = useParams()
   const search = useSearchParams()
@@ -162,4 +162,4 @@ const onSubmit = async () => {
   )
 }
 
-export default page
+export default Page

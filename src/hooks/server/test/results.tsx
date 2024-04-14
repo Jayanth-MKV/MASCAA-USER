@@ -19,10 +19,34 @@ export const getSubResults = async (id: string) => {
   });
 };
 
+export const RevalSubResults = async ({id}:{id: string}) => {
+  // console.log("id",id)
+  return await request({
+    method: "GET",
+    url: `evaluation/submission/${id}/results/reload`,
+  });
+};
+
 export const createSubmission = async (data: any ) => {
   return await request({
     method: "POST",
     url: `${BASE_URL}/`,
+    data,
+  });
+};
+
+export const reloadAudioEmotion = async (data: any ) => {
+  return await request({
+    method: "POST",
+    url: `evaluation/audio/reload`,
+    data,
+  });
+};
+
+export const reloadTextEmotion = async (data: any ) => {
+  return await request({
+    method: "POST",
+    url: `evaluation/text/reload`,
     data,
   });
 };

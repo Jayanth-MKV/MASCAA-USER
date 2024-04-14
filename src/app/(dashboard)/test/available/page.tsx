@@ -23,7 +23,7 @@ import Loading from '../loading'
 import NoData from '@/components/component/home/NoData'
 
 
-const page = () => {
+const Page = () => {
   const { toast } = useToast();
   const router = useRouter()
   const pathname = usePathname()
@@ -36,7 +36,7 @@ const page = () => {
     isError,
     isLoadingError,
     refetch } = useApiGet(
-      ["tests"],
+      ["testsavail"],
       getAllAvailableTests,
       {
         enabled: true,
@@ -49,9 +49,9 @@ const page = () => {
     toast({
       variant: "destructive",
       title: "Error",
-      description: "Cannot get tests :" + error.message
+      description: "Cannot get tests :" + error?.message
     });
-    refetch();
+    // refetch();
   }
 
   // console.log(data);
@@ -153,4 +153,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

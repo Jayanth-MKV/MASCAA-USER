@@ -21,6 +21,7 @@ return p;
 };
 
 export const getTestU = async (id:string) => {
+  console.log("testU")
   return await request({
     method: "GET",
     url: `${BASE_URL}/user/${id}`,

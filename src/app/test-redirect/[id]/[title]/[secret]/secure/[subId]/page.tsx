@@ -62,7 +62,7 @@ Duration ( in minutes ) - {test?.durationMinutes}
 </div>
 
 <div>
-  {test?.keywords.map((k)=>(<Badge className='mr-3'>{k}</Badge>))}
+  {test?.keywords.map((k:string)=>(<Badge key={k} className='mr-3'>{k}</Badge>))}
 </div>
 </div>
 

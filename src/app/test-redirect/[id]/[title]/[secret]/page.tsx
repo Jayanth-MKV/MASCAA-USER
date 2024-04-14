@@ -11,7 +11,7 @@ const page = async ({
     searchParams?: { [key: string]: string | string[] | undefined };
   }) => {
 
-
+    console.log({id:params.id,title:params.title,secret:params.secret})
     const test = await getTestU(params.id);
     console.log(test)
 
