@@ -11,6 +11,14 @@ export const getTestSubmissions = async (id: string) => {
   });
 };
 
+export const getSubResults = async (id: string) => {
+  // console.log("id",id)
+  return await request({
+    method: "GET",
+    url: `evaluation/submission/${id}/results`,
+  });
+};
+
 export const createSubmission = async (data: any ) => {
   return await request({
     method: "POST",
@@ -25,5 +33,24 @@ export const getSubmission = async (id: string) => {
   return await request({
     method: "GET",
     url: `${BASE_URL}/${id}`,
+  });
+};
+
+
+
+export const getSubQues = async ({id}:{id: string}) => {
+  // console.log("id",id)
+  return await request({
+    method: "GET",
+    url: `subquestion/user/${id}`,
+  });
+};
+
+
+export const getAudio = async (data: any ) => {
+  return await request({
+    method: "POST",
+    url: `user/getaudiofile`,
+    data,
   });
 };

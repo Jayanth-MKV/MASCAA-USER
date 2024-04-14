@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { DashboardIcon, FileIcon, FileTextIcon, PlusCircledIcon } from '@radix-ui/react-icons'
 import React from 'react'
 import { useToast } from "@/components/ui/use-toast"
-import { getOngTests } from '@/hooks/server/test/url'
+import { getAllAvailableTests, getOngTests } from '@/hooks/server/test/url'
 import { useApiGet } from '@/hooks/network/rq'
 import { usePathname, useRouter } from 'next/navigation'
 import { FileEditIcon } from '@/components/icons/page'
@@ -37,7 +37,7 @@ const page = () => {
     isLoadingError,
     refetch } = useApiGet(
       ["tests"],
-      getOngTests,
+      getAllAvailableTests,
       {
         enabled: true,
         refetchOnWindowFocus: true,
@@ -94,7 +94,7 @@ const page = () => {
       <div className="bg-white py-24 sm:py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 md:items-center gap-10 flex flex-col lg:flex-row  md:justify-between">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Published Tests</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Available Tests</h2>
             <p className="mt-2 text-lg leading-8 text-gray-600">Create Tests and Evaluate Confidence </p>
           </div>
 
@@ -105,7 +105,7 @@ const page = () => {
               <article className="flex max-w-xl flex-col items-center justify-between">
                 <Card className='h-[380px] w-[280px] flex flex-col justify-between'>
                   <CardHeader>
-                    <CardTitle className='text-2xl overflow-clip max-h-[70px] h-[70px]'>{test.title.toUpperCase()} asascascascasasc asc a sc as </CardTitle>
+                    <CardTitle className='text-2xl overflow-clip max-h-[70px] h-[70px]'>{test.title.toUpperCase()} </CardTitle>
                     <CardDescription>{convertDateToIst(test.createdAt)}</CardDescription>
                   </CardHeader>
                   <ScrollArea className="w-full p-2 whitespace-nowrap rounded-md border">

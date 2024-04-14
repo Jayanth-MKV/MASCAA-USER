@@ -59,6 +59,10 @@ const [stt, setstt] = useState("");
       // Process the final transcript
     }
     setstt(transcript);
+    setAudioOp({
+      ...AudioOp,
+      text:transcript
+    });
 
   }, [transcript, finalTranscript]);
 
@@ -68,7 +72,7 @@ const [stt, setstt] = useState("");
 
     setAudioOp({
       ...AudioOp,
-      text:transcript
+      text:stt
     });
 
 

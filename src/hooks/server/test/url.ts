@@ -20,9 +20,36 @@ const p = await data.map((test:{title:string,_id:string})=>{
 return p;
 };
 
+export const getTestU = async (id:string) => {
+  return await request({
+    method: "GET",
+    url: `${BASE_URL}/user/${id}`,
+  });
+};
 
+
+
+// const handleTranscriptAnswer = async (text:string)=>{
+//   const resp = await submitAudioTrans({index:index.toString(),id:testSubmission._id,
+// type:"AUDIO",
+// text:text
+// });
+// console.log(resp)
+// }
+
+export const submitAudioTrans = async (data: any ) => {
+  const {text,index,id} = data;
+  
+  return await request({
+    method: "POST",
+    url: `user/submit/audio/transcript/${index}/${id}`,
+    data:{text:text},
+  });
+};
 
 export const submitAudio = async (data: any ) => {
+
+  const s = await submitAudioTrans({...data});
   console.log(data)
   const {formData,testId,index,id} = data;
   return await request({
@@ -61,12 +88,30 @@ export const submitTest = async (data: any ) => {
 };
 
 
-export const getTestU = async (id:string) => {
+export const getUserTests= async () => {
   return await request({
     method: "GET",
-    url: `${BASE_URL}/user/${id}`,
+    url: `submission/user/mytests`,
   });
 };
+
+
+export const getTakenTests = async () => {
+  return await request({
+    method: "GET",
+    url: `${BASE_URL}/instructor/mytests/ongoing`,
+  });
+};
+
+
+
+export const getAllAvailableTests = async () => {
+  return await request({
+    method: "GET",
+    url: `${BASE_URL}/all`,
+  });
+};
+
 
 
 

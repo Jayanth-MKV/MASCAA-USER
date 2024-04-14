@@ -5,8 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import AudioSubQuesEdit from './AudioSubQuestionEdit'
 import { SpeakerLoudIcon } from '@radix-ui/react-icons'
+import { Separator } from '@/components/ui/separator'
+import CorrectAudioComponent from './CorrectAudioComponent'
+import GetAudioComponent from './GetAudioComponent'
 
 const AudioQuestion = ({ question, id }: any) => {
   return (
@@ -20,7 +22,6 @@ const AudioQuestion = ({ question, id }: any) => {
         <div className='px-3'>This question can be an a general question ( recommended ). The answer is speech, so ask accordingly</div>
       </Card>
       <Card className='relative my-10'>
-        {question?.title && <AudioSubQuesEdit testId={id} id={question?._id} title={question?.title} content={question?.content} powerReference={question?.powerReference} />}
         <CardHeader>
           <CardTitle className='text-xl'>
             {question?.title}
@@ -28,16 +29,39 @@ const AudioQuestion = ({ question, id }: any) => {
           <CardDescription>
             <div dangerouslySetInnerHTML={{ __html: question?.content }} className='renderhtml '></div>
           </CardDescription>
-          <CardDescription className='py-5'>
-            {question?.powerReference &&
-              <>
+          <Separator className='my-3' />
+          <CardDescription className='py-3'>
+          <strong>
+                  Your Answer :
+                </strong>
+            <div dangerouslySetInnerHTML={{ __html: question?.audiototext }} className='renderhtml '></div>
+          </CardDescription>
+          <CardDescription className='py-5 my-3'>
+            {question?.sqid &&
+              <div className='flex justify-between'>
                 <strong>
                   Reference Answer :
                 </strong>
                 <code>
-                  {question?.powerReference}
+                  <CorrectAudioComponent id={question.sqid} />
                 </code>
-              </>
+              </div>
+            }
+          </CardDescription>
+          <CardDescription className='py-5 my-3'>
+            {question?.audiofileurl ?
+              <div className='flex justify-between flex-col'>
+                <strong>
+                  Your Audio :
+                </strong>
+                <code className='py-5'>
+                  <GetAudioComponent filePath={question.audiofileurl} />
+                </code>
+              </div>
+              :
+              <div>
+                No Audio Submitted
+              </div>
             }
           </CardDescription>
         </CardHeader>

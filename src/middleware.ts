@@ -8,9 +8,9 @@ export function middleware(req: NextRequest) {
   const tokenFromOauth = req.cookies.get("token");
   const tokenData =  req.cookies.get("s_user");
 
-  // console.log({
-  //   tokenData,token,tokenFromOauth
-  // })
+  console.log({
+    tokenData,token,tokenFromOauth
+  })
 
   // console.log("inside middleware")
   
@@ -93,9 +93,9 @@ if((!token && !tokenData) && ((token && !tokenData) || (!token && tokenData))){
   // }
 
   if (
-    !token &&
-    !tokenFromOauth &&
-    !tokenData &&
+(    !token &&
+    !tokenFromOauth ||
+    !tokenData) &&
     !req.nextUrl.pathname.startsWith("/auth")
   ) {
     console.log("cant enter homepage ");

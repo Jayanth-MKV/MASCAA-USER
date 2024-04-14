@@ -82,9 +82,8 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
 
   const handleSubmitNext = () => {
     console.log("Submit");
-    handleSubmit();
     window.localStorage.removeItem("stopped-area");
-    router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)
+    handleSubmit();
   }
 
 
@@ -111,13 +110,17 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
         
         setLocal({ index, subType: sub?.type, time: prevTimeLeft });
         // console.log({ index, subType: sub?.type, time: prevTimeLeft })
-        if (prevTimeLeft == TIME - TIME / 3) {
-          setsub({ type: "AUDIO" });
-        }
         if (prevTimeLeft === 0) {
-          clearInterval(interval);
-          handleQuestionChange(); // Change to the next question
-          return TIME/3; // Reset time left for the new question
+          if (sub.type=="TEXT") {
+            setsub({ type: "AUDIO" });
+            return 2*TIME/3; // Reset time left for the new question
+          }
+          if(sub.type=="AUDIO"){
+            setsub({ type: "TEXT" });
+            clearInterval(interval);
+            handleQuestionChange(); // Change to the next question
+            return TIME/3; // Reset time left for the new question
+          }
         } else {
           return prevTimeLeft - 1;
         }

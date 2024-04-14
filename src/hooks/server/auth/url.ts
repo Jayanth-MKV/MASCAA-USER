@@ -3,7 +3,7 @@ import { request } from "@/hooks/network/network";
 const BASE_URL = "auth";
 
 export const loginUser = async (data: any) => {
-  console.log(data);
+  // console.log(data);
   const res = await request({
     method: "POST",
     url: `${BASE_URL}/slogin`,

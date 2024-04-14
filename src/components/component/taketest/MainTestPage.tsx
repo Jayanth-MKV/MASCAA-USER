@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import TestPage from './TestPage';
 import CamViewNoDialog from './CamViewNoDialog';
 import { useApiSend } from '@/hooks/network/rq';
-import { submitAudio, submitTest, submitText } from '@/hooks/server/test/url';
+import { submitAudio, submitAudioTrans, submitTest, submitText } from '@/hooks/server/test/url';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 
@@ -47,13 +47,13 @@ import { useRouter } from 'next/navigation';
 
 const MainTestPage = ({ test, testSubmission }: any) => {
 
-    if(testSubmission.submitted){
+    if (testSubmission.submitted) {
         return <>
-        <div className='w-screen h-screen flex justify-center items-center'>
-        Test already submitted
-        </div>
+            <div className='w-screen h-screen flex justify-center items-center'>
+                Test already submitted
+            </div>
         </>
-      }
+    }
 
     const [index, setindex] = useState(0);
 
@@ -65,7 +65,7 @@ const MainTestPage = ({ test, testSubmission }: any) => {
     const router = useRouter();
 
 
-    const {mutate:mutateAudio,isPending} = useApiSend(
+    const { mutate: mutateAudio, isPending } = useApiSend(
         submitAudio,
         (data: any) => {
             console.log(data)
@@ -83,7 +83,7 @@ const MainTestPage = ({ test, testSubmission }: any) => {
             })
         },
     )
-    const {mutate:mutateText} = useApiSend(
+    const { mutate: mutateText } = useApiSend(
         submitText,
         (data: any) => {
             console.log(data)
@@ -102,7 +102,8 @@ const MainTestPage = ({ test, testSubmission }: any) => {
         },
     )
 
-    const {mutate:mutateSubmit} = useApiSend(
+
+    const { mutate: mutateSubmit } = useApiSend(
         submitTest,
         (data: any) => {
             console.log(data)
@@ -121,65 +122,70 @@ const MainTestPage = ({ test, testSubmission }: any) => {
         },
     )
 
-    const handleAudioAnswer=(data:any)=>{
+    const handleAudioAnswer = (data: any) => {
+
         const formData = new FormData();
-        formData.append("file",data.file, 'filename.wav');
-        formData.append("text",data.text);
+        formData.append("text", data.text);
+        formData.append("file", data.file, 'filename.wav');
 
         console.log(formData.getAll('file'));
         console.log(formData.getAll('text'));
 
         const payload = {
-            formData:formData,
-index:index.toString(),
-testId:test._id,
-id:testSubmission._id,
-type:"AUDIO",
+            formData: formData,
+            index: index.toString(),
+            testId: test._id,
+            id: testSubmission._id,
+            type: "AUDIO",
+            text: data.text,
         }
-        console.log("subq  audio answer: ",payload);
-        mutateAudio({...payload});
+        console.log("subq  audio answer: ", payload);
+        mutateAudio({ ...payload });
     }
 
-    const findMax=(obj:any)=>{
-        let max = Object.entries(obj).reduce((max:any, entry:any) => entry[1] >= max[1] ? entry : max, [0, -Infinity])
+
+
+    const findMax = (obj: any) => {
+        let max = Object.entries(obj).reduce((max: any, entry: any) => entry[1] >= max[1] ? entry : max, [0, -Infinity])
         return max[0];
     }
 
-    const handleTextAnswer=(time:number)=>{
-        let emotion=""
+    const handleTextAnswer = (time: number) => {
+        let emotion = ""
         console.log(data)
-        if(data.length!=0){
+        if (data.length != 0) {
             const emotionData = data[0]["expressions"];
             emotion = findMax(emotionData);
         }
         const payload = {
-            answer:answer,
-            time:time.toString(),
+            answer: answer,
+            time: time.toString(),
             emotion,
-            index:index.toString(),
-            id:testSubmission._id,
-            type:"TEXT",
+            index: index.toString(),
+            id: testSubmission._id,
+            type: "TEXT",
         }
-        console.log("subq text answer: ",payload);
+        console.log("subq text answer: ", payload);
         setanswer("");
 
-        mutateText({...payload});
+        mutateText({ ...payload });
     }
 
-    const handleSubmit = ()=>{
+    const handleSubmit = () => {
         console.log("test submitted")
         window.localStorage.removeItem("stopped-area");
-        // mutateSubmit({id:testSubmission._id});
+        mutateSubmit({id:testSubmission._id});
+    router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)
     }
-    
+
 
 
     return (
         <>
-  {isOk && test && testSubmission && <TestPage index={index} setindex={setindex} handleSubmit={handleSubmit} handleAudioAnswer={handleAudioAnswer} handleTextAnswer={handleTextAnswer} answer={answer} setanswer={setanswer} test={test} testSubmission={testSubmission} />}
-<div className='row-span-1 col-span-1 overflow-y-scroll scrollbar-hide'>
-  <CamViewNoDialog  data={data} setData={setdata} videoHeight={100} videoWidth={150} setisOk={setisOk} isOk={isOk} />
-</div>
+            {isOk && test && testSubmission && <TestPage index={index} setindex={setindex} handleSubmit={handleSubmit} handleAudioAnswer={handleAudioAnswer} handleTextAnswer={handleTextAnswer} answer={answer} setanswer={setanswer} test={test} testSubmission={testSubmission} />}
+            <div className='row-span-1 col-span-1 overflow-y-scroll scrollbar-hide'>
+                <CamViewNoDialog data={data} setData={setdata} videoHeight={100} videoWidth={150} setisOk={setisOk} isOk={isOk} />
+            </div>
         </>
     )
 }
