@@ -100,8 +100,12 @@ const Page = () => {
 
         </div>
         <div className="items-center mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-300 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {data &&
-            data?.sort((a: any, b: any) => new Date(b?.updatedAt) - new Date(a?.updatedAt))?.map((test) => (
+          {data!=undefined && Array.isArray(data) &&
+            data?.sort((a: any, b: any) => {
+              const aUpdatedAt = a?.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+              const bUpdatedAt = b?.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+              return bUpdatedAt - aUpdatedAt;
+            })?.map((test) => (
               <article key={test?.title} className="flex max-w-xl flex-col items-center justify-between">
                 <Card className='h-[380px] w-[280px] flex flex-col justify-between'>
                   <CardHeader>
@@ -137,7 +141,7 @@ const Page = () => {
 
         </div>
         {
-          data!=undefined && data?.length == 0 && <>
+          data!=undefined && Array.isArray(data) && data?.length == 0 && <>
             <NoData  text='No Ongoing Tests'/>
             <div className='w-full flex justify-center mt-5'>
               <Button className="max-w-[200px]" onClick={() => {

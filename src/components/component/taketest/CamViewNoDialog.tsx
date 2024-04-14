@@ -1,8 +1,6 @@
 "use client"
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
-
-
 import * as faceapi from 'face-api.js';
 
 

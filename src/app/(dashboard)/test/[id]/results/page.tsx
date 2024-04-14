@@ -27,7 +27,7 @@ const Results = async ({ params, searchParams }: {
     <div>No Data Found</div>
   }
   const quesl = data["questions"].length;
-  const tt = results.reduce((acc,item)=>parseInt(item.time)+acc,0);
+  const tt = results.reduce((acc:any,item:any)=>parseInt(item.time)+acc,0);
   const avgTime = tt/quesl;
 
   let correctAns = 0;
