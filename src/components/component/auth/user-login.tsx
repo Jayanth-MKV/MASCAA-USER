@@ -39,7 +39,7 @@ export function UserLogin() {
 
   const handleOauth = async (event: any) => {
     event.preventDefault();
-    window.location.href = `${BACKEND_URL}/auth/callback/google/user`;
+    window.location.href = `${BACKEND_URL}/auth/callback/google`;
   };
 
   const { mutate, isError, isPending } = useApiSend(
