@@ -17,6 +17,14 @@ import { z } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Badge } from '@/components/ui/badge';
 import TakeTestForm from '@/components/component/test/TakeTestForm';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 
 const FormSchema = z.object({
@@ -87,6 +95,17 @@ const Newtest = () => {
 
   return (
     <div>
+                  <Breadcrumb className='m-5'>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/home">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>take-test</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
       <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-center py-10 gap-10">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Take Test</h2>

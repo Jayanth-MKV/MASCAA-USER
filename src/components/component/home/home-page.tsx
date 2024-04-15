@@ -11,7 +11,6 @@ import { DrawerDemo } from "./mobile-nav"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 
 export function HomePage({ children }: { children: ReactNode }) {
-  const cookie = cookies().get('token')
   const cuser = cookies().get('s_user') || "{value:'{}'}";
   const user = JSON.parse(cuser["value"]);
   // console.log(cookie)
@@ -80,7 +79,11 @@ export function HomePage({ children }: { children: ReactNode }) {
 
             <h1 className="font-bold ">
               <span className="font-semibold font-mono">
+                {user && 
+                <>
                 {user["name"]}
+                </>
+                }
               </span>
             </h1>
 

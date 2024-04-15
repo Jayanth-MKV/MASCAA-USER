@@ -119,22 +119,18 @@ const EditQues = ({ data, id,testId }: any) => {
         <div className="bg-white py-24 sm:py-10">
 
         <div className="mx-auto max-w-7xl px-6 pb-3 lg:px-8 md:items-center gap-10 flex flex-col lg:flex-row  md:justify-between">
-        <div className='max-w-[200px]'>
-          <Button className="w-full" onClick={() => {
-            router.push("/test")
-          }}>
-            <ArrowLeftIcon className="mr-2 h-4 w-4" /> Back
-          </Button>
-        </div>
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Your Test Answers</h2>
           {/* <p className="mt-2 text-lg leading-8 text-gray-600">View Tests and Evaluate Confidence </p> */}
         </div>
-      </div>
-        {/* <div className="items-center mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-300 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"> */}
-        <Separator />
-        <Separator />
+        <div className='max-w-[200px]'>
+          {/* <Button className="w-full" onClick={() => {
+            router.push("/test")
+          }}>
+            <ArrowLeftIcon className="mr-2 h-4 w-4" /> Back
+          </Button> */}
+        </div>
         <div className='p-5 flex justify-end'>
         <Button className="ml-auto" onClick={() => {
             router.push("/test/"+id+"/results")
@@ -142,6 +138,10 @@ const EditQues = ({ data, id,testId }: any) => {
             <FileIcon className="mr-2 h-4 w-4" /> Check Results
           </Button>
         </div>
+      </div>
+        {/* <div className="items-center mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-300 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"> */}
+        <Separator />
+        <Separator />
         <div className='md:w-[70%] mx-auto pt-10'>{
             data &&
             <>

@@ -19,7 +19,7 @@ export const getSubResults = async (id: string) => {
   });
 };
 
-export const RevalSubResults = async ({id}:{id: string}) => {
+export const ReEvalAlgo = async ({id}:{id: string}) => {
   // console.log("id",id)
   return await request({
     method: "GET",
@@ -27,10 +27,26 @@ export const RevalSubResults = async ({id}:{id: string}) => {
   });
 };
 
+export const ReEvalTest = async ({id}:{id: string}) => {
+  // console.log("id",id)
+  return await request({
+    method: "GET",
+    url: `evaluation/submission/${id}/test/reload`,
+  });
+};
+
 export const createSubmission = async (data: any ) => {
   return await request({
     method: "POST",
     url: `${BASE_URL}/`,
+    data,
+  });
+};
+
+export const reloadAudioRel = async (data: any ) => {
+  return await request({
+    method: "POST",
+    url: `evaluation/relevance/reload`,
     data,
   });
 };

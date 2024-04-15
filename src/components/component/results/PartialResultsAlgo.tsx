@@ -4,16 +4,16 @@ import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/components/ui/use-toast'
 import { useApiSend } from '@/hooks/network/rq'
-import { ReEvalTest } from '@/hooks/server/test/results'
+import { ReEvalAlgo, ReEvalTest } from '@/hooks/server/test/results'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const PartialResults = ({ id }: any) => {
+const PartialResultsAlgo = ({ id }: any) => {
   const { toast } = useToast()
   const router = useRouter();
 
   const { mutate, isPending } = useApiSend(
-    ReEvalTest,
+    ReEvalAlgo,
     (data: any) => {
       console.log(data)
       toast({
@@ -50,10 +50,10 @@ const PartialResults = ({ id }: any) => {
     <> <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle className="text-sm font-bold py-3">
-          Reload results
+          Revaluate results
           <>
             <Button onClick={onSubmit} className='mt-5 ml-5'>
-              reload
+              Revaluate
             </Button>
           </>
         </CardTitle>
@@ -62,4 +62,4 @@ const PartialResults = ({ id }: any) => {
   )
 }
 
-export default PartialResults
+export default PartialResultsAlgo

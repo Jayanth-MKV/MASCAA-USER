@@ -1,18 +1,31 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getSubResults, getTestSubmissions } from '@/hooks/server/test/results';
+import { getSubmission, getSubResults, getTestSubmissions } from '@/hooks/server/test/results';
 import Image from 'next/image';
 import React from 'react'
 import Loading from '../../loading';
 import Emotions from '@/components/component/results/Emotions';
 import Reports from '@/components/component/results/Reports';
 import PartialResults from '@/components/component/results/PartialResults';
+import PartialResultsAlgo from '@/components/component/results/PartialResultsAlgo';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
 
 const Results = async ({ params, searchParams }: {
   params: { id: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
+
+  const data1 = await getSubmission(params?.id);
+    console.log(data1);
 
   const data = await getSubResults(params?.id);
   console.log(data);
@@ -40,13 +53,20 @@ const Results = async ({ params, searchParams }: {
       return false;
     }
   });
+  let notQPartial = data["questions"].every((item:any)=>{
+    if(item){
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
 
   results.forEach((item:any) => {
     if(item.correctAnswer=="true" || item.correctAnswer==true){
       correctAns+=1
     }
-    if(item.correctAnswer!='' && (item.correctAnswer=="false" || item.correctAnswer==false)){
-      console.log("item.correctAnswer")
+    if((item.correctAnswer=="false" || !item.correctAnswer)){
       incorrectAns+=1
     }
   });
@@ -67,17 +87,30 @@ const Results = async ({ params, searchParams }: {
 
   return (
     <div>
-      <div className="md:hidden">
-      </div>
+                       <Breadcrumb className='m-5'>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/home">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/test">tests</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>results</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
       <div className=" flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Test Results</h2>
             <div className="flex items-center space-x-2">
-              <Button>Download</Button>
+
             </div>
           </div>
-          <Tabs defaultValue="overview" className="space-y-4">
+          <Tabs defaultValue="overview" className="space-y-10 py-10">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="confidence analytics" >
@@ -112,7 +145,7 @@ const Results = async ({ params, searchParams }: {
                   <CardContent>
                     <div className="text-2xl font-bold text-green-500">{correctAns }</div>
                     <p className="text-xs text-muted-foreground">
-                      +{correctAns*100/quesl}% of actual questions
+                      +{(correctAns*100/quesl).toFixed(0)}% of actual questions
                     </p>
                   </CardContent>
                 </Card>
@@ -123,7 +156,7 @@ const Results = async ({ params, searchParams }: {
                   <CardContent>
                     <div className="text-2xl font-bold text-red-600">{incorrectAns}</div>
                     <p className="text-xs text-muted-foreground">
-                      +{incorrectAns*100/quesl}% of actual questions
+                      +{(incorrectAns*100/quesl).toFixed(0)}% of actual questions
                     </p>
                   </CardContent>
                 </Card>
@@ -136,11 +169,37 @@ const Results = async ({ params, searchParams }: {
                   <CardContent>
                     <div className="text-2xl font-bold">{avgTime}</div>
                     <p className="text-xs text-muted-foreground">
-                      +{avgTime*100/60}% of total time
+                      +{(avgTime*100/60).toFixed(2)}% of total time
                     </p>
                   </CardContent>
                 </Card>
                 {!notPartial && <PartialResults  id={params?.id} />}
+                {!notQPartial && <PartialResultsAlgo  id={params?.id} />}
+                {notQPartial && <>
+                  <Card className='col-span-2 flex items-center justify-evenly py-5'>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0">
+                    <CardTitle className="text-md font-bold">
+                      Test Confidence
+                    </CardTitle>
+                  </CardHeader>
+                  <>
+                    <div className="text-2xl font-bold flex justify-center items-center">
+                      {(data.confidenceLevel=="LOW"? <strong className='text-red-500'>LOW</strong>:
+                  (data.confidenceLevel=="MEDIUM"?<strong className='text-orange-500'>
+                    MEDIUM
+                  </strong>
+                  :
+                  <strong className='text-green-500'>
+                    HIGH
+                  </strong>
+                  )
+                  )}</div>
+                  </>
+                    <p className="text-xs text-muted-foreground">
+                      +{Number(data.testConfidence).toFixed(2)} % of 100 %
+                    </p>
+                </Card>
+                  </>}
               </div>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
               </div>
