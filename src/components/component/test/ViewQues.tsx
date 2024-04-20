@@ -189,8 +189,8 @@ const EditQues = ({ data, id,testId }: any) => {
                                                     <TabsTrigger className='text-md font-bold' value="audio">Audio  Question</TabsTrigger>
                                                 </TabsList>
                                                 <Separator />
-                                                <TabsContent value="text" className='min-h-[350px]'><TextQuestion id={testId} question={question["subQ"]?.filter((item) => (item.type == "TEXT"))[0]} /></TabsContent>
-                                                <TabsContent value="audio" className='min-h-[350px]'><AudioQuestion id={testId} question={question["subQ"]?.filter((item) => (item.type == "AUDIO"))[0]} /></TabsContent>
+                                                <TabsContent value="text" className='min-h-[350px]'><TextQuestion id={testId} question={question["subQ"]?.filter((item:any) => (item.type == "TEXT"))[0]} /></TabsContent>
+                                                <TabsContent value="audio" className='min-h-[350px]'><AudioQuestion id={testId} question={question["subQ"]?.filter((item:any) => (item.type == "AUDIO"))[0]} /></TabsContent>
                                             </Tabs>
                                         </DialogContent>
 

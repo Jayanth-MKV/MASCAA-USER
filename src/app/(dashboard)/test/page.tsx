@@ -96,8 +96,13 @@ const Page = () => {
           </div>
         </div>
         <div className="items-center mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-300 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {data != undefined &&
-            data?.sort((a: any, b: any) => new Date(b?.updatedAt) - new Date(a?.updatedAt))?.map((test: any, idx: number) => (
+          {data != undefined && Array.isArray(data) && 
+            data?.sort((a: any, b: any) => {
+              const a1:any = new Date(b?.updatedAt);
+              const b1:any =  new Date(a?.updatedAt);
+              const c = a1-b1;
+              return c;
+            })?.map((test: any, idx: number) => (
               <article key={idx} className="flex max-w-xl flex-col items-center justify-between">
                 <Card className='h-[400px] w-[280px] flex flex-col justify-between'>
                   {test?.submitted && <Badge className='bg-green-400'>submitted</Badge>}
@@ -143,8 +148,8 @@ const Page = () => {
           }
         </div>
         {
-          data != undefined && data?.length == 0 && <>
-            <NoData />
+          data != undefined && Array.isArray(data) &&  data?.length == 0 && <>
+            <NoData text="" />
             <div className='w-full flex justify-center mt-5'>
               Take Tests
             </div>

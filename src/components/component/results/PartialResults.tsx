@@ -41,7 +41,7 @@ const PartialResults = ({ id }: any) => {
 
   const onSubmit = async () => {
     console.log(id)
-    mutate({ id: id });
+    mutate({ id: id } as any);
 
   }
 

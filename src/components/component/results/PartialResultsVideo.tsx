@@ -44,7 +44,7 @@ const PartialResultsText = ({id,index}:any) => {
           id:id,
           index:index
       }
-       mutate({...payload}); 
+       mutate({...payload} as any); 
   }
 
 

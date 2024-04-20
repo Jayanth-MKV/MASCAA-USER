@@ -71,7 +71,7 @@ const UnPublishTest = ({ id }: { id: string }) => {
     const onSubmit = async () => {
         console.log(id);
         if (id) {
-            return mutate({ id, published: true });
+            return mutate({ id, published: true } as any);
         }
     }
 

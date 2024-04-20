@@ -102,7 +102,7 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft(prevTimeLeft => {
+      setTimeLeft((prevTimeLeft:any) => {
 
         if(pause){
           return prevTimeLeft;

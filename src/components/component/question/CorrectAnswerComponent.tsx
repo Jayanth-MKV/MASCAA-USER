@@ -39,7 +39,7 @@ const CorrectAnswerComponent = async ({id}:{id:string}) => {
 
     const onSubmit = async () => {
         console.log(id);
-        mutate({ id });
+        mutate({ id } as any);
     }
 
     return (

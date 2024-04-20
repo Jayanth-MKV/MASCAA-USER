@@ -40,8 +40,8 @@ const Emotions = ({ data }: any) => {
                 "No Of Questions": aem[emo]
             }
         })
-        setVem(arrVem);
-        setAem(arrAem);
+        setVem(arrVem as any);
+        setAem(arrAem as any);
         console.log(arrVem)
         console.log(arrAem)
     }
@@ -90,7 +90,7 @@ const Emotions = ({ data }: any) => {
 
                     {Vem.length == 0 &&
                         <Card className='h-[400px]'>
-                            <NoData />
+                            <NoData text=""/>
                         </Card>
                     }
                 </CardContent>

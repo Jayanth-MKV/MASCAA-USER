@@ -77,16 +77,16 @@ const CsvImports = ({link,test}:any) => {
 
         // Event listener on reader when the file
         // loads, we parse it and set the data.
-        reader.onload = async ({ target }) => {
-            const csv = Papa.parse(target?.result, {
+        reader.onload = async ({ target }:any) => {
+            const csv = Papa.parse((target as any)?.result, {
                 header: true,
             });
-            const parsedData = csv?.data;
+            const parsedData = (csv as any)?.data;
             console.log(parsedData)
 
-            setData(parsedData);
+            setData(parsedData as any);
         };
-        reader.readAsText(file);
+        reader.readAsText(file as any);
     };
 
 
@@ -130,7 +130,7 @@ const CsvImports = ({link,test}:any) => {
             }
         })
         if (data && data?.length != 0 && id) {
-            mutate({ "data": payload });
+            mutate({ "data": payload } as any);
         }
     }
 
@@ -183,8 +183,8 @@ const CsvImports = ({link,test}:any) => {
                                 data.map((row, idx) => {
                                     return (
                                         <TableRow key={idx}>
-                                            <TableCell className="font-medium">{row?.email}</TableCell>
-                                            <TableCell className="text-right">{row?.name}</TableCell>
+                                            <TableCell className="font-medium">{(row as any)?.email}</TableCell>
+                                            <TableCell className="text-right">{(row as any)?.name}</TableCell>
                                         </TableRow>
                                     )
                                 })

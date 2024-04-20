@@ -78,7 +78,7 @@ const Newtest = () => {
     const payload = {
       testSecret: data?.testSecret,
       id:selected
-    }
+    } as any
     console.log("submitted data", payload);
     mutate(payload);
   }

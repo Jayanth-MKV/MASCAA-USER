@@ -43,7 +43,7 @@ const [stt, setstt] = useState("");
     continuous: true, // Enable continuous recognition
     maxAlternatives: 5, // Set the number of alternative transcriptions
     abortController: abortController, // Use the abortController instance
-  });
+  } as any);
 
   
   useEffect(() => {
@@ -86,9 +86,9 @@ const [stt, setstt] = useState("");
         video: false,
       });
       setPermission(true);
-      setStream(streamData);
-    } catch (err) {
-      alert(err.message);
+      setStream(streamData as any);
+    } catch (err:any) {
+      alert(err?.message);
     }
   };
 
@@ -113,11 +113,11 @@ const [stt, setstt] = useState("");
     setRecordingStatus("recording");
     SpeechRecognition.startListening({ continuous: true, language: 'en-IN' }); // Set the language to Indian English
 
-    const media = new MediaRecorder(stream, { type: mimeType });
-    setMediaRecorder(media);
+    const media = new MediaRecorder(stream as any, { type: mimeType } as any);
+    setMediaRecorder(media as any);
     media?.start();
 
-    let localAudioChunks = [];
+    let localAudioChunks:any = [];
     media.ondataavailable = (event) => {
       if (typeof event.data === "undefined" || event.data.size === 0) return;
       localAudioChunks.push(event.data);
@@ -131,11 +131,11 @@ const [stt, setstt] = useState("");
     SpeechRecognition.stopListening();
 
     if (mediaRecorder) {
-      mediaRecorder.stop();
-      mediaRecorder.onstop = () => {
+      (mediaRecorder as any).stop();
+      (mediaRecorder as any).onstop = () => {
         const audioBlob = new Blob(audioChunks, { type: mimeType });
         const audioUrl = URL.createObjectURL(audioBlob);
-        setAudio(audioUrl);
+        setAudio(audioUrl as any);
         var wavefilefromblob = new File([audioBlob], 'filename.wav',{ type: 'audio/wav' });
         console.log(wavefilefromblob);
         setAudioOp({...AudioOp,file:wavefilefromblob}); 

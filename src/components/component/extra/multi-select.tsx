@@ -20,7 +20,7 @@ export function FancyMultiSelect({  frameworks:FRAMEWORKS, value:selected, setVa
 //   const [selected, setSelected] = React.useState<Framework[]>([FRAMEWORKS[4]]);
   const [inputValue, setInputValue] = React.useState("");
   const handleUnselect = React.useCallback((framework: Framework) => {
-    setSelected(prev => prev.filter(s => s.value !== framework.value));
+    setSelected((prev:any) => prev.filter((s:any) => s.value !== framework.value));
   }, []);
 
   const handleKeyDown = React.useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -28,7 +28,7 @@ export function FancyMultiSelect({  frameworks:FRAMEWORKS, value:selected, setVa
     if (input) {
       if (e.key === "Delete" || e.key === "Backspace") {
         if (input.value === "") {
-          setSelected(prev => {
+          setSelected((prev:any) => {
             const newSelected = [...prev];
             newSelected.pop();
             return newSelected;
@@ -50,7 +50,7 @@ export function FancyMultiSelect({  frameworks:FRAMEWORKS, value:selected, setVa
         className="group border border-input px-3 py-2 text-sm ring-offset-background rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
       >
         <div className="flex gap-1 flex-wrap">
-          {selected.map((framework) => {
+          {selected.map((framework:any) => {
             return (
               <Badge key={framework.value} variant="secondary">
                 {framework.label}
@@ -98,7 +98,7 @@ export function FancyMultiSelect({  frameworks:FRAMEWORKS, value:selected, setVa
                     }}
                     onSelect={(value) => {
                       setInputValue("")
-                      setSelected(prev => [...prev, framework])
+                      setSelected((prev:any) => [...prev, framework])
                     }}
                     className={"cursor-pointer"}
                   >

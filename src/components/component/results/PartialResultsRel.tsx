@@ -45,7 +45,7 @@ const PartialResultsRel = ({ id,index }: any) => {
           index:index.toString()
       }
       console.log(payload)
-       mutate({...payload}); 
+       mutate({...payload} as any); 
   }
 
 

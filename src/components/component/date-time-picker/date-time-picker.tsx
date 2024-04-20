@@ -42,7 +42,7 @@ export function DateTimePicker({ date, setDate }: TimePickerDemoProps) {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={(d) => {
+          onSelect={(d:any) => {
             const selectedDate = new Date(d);
 
             // Extract time components from the selected date

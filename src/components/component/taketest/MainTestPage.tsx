@@ -162,8 +162,8 @@ const MainTestPage = ({ test, testSubmission }: any) => {
 
         console.log("subq  audio answer: ", payload);
         console.log("subq  audio trans: ", tpayload);
-        mutateAudio({ ...payload });
-        mutateAudioTrans({ ...tpayload });
+        mutateAudio({ ...payload } as any);
+        mutateAudioTrans({ ...tpayload } as any);
     }
 
 
@@ -191,13 +191,13 @@ const MainTestPage = ({ test, testSubmission }: any) => {
         console.log("subq text answer: ", payload);
         setanswer("");
 
-        mutateText({ ...payload });
+        mutateText({ ...payload } as any);
     }
 
     const handleSubmit = () => {
         console.log("test submitted")
         window.localStorage.removeItem("stopped-area");
-        mutateSubmit({id:testSubmission._id});
+        mutateSubmit({id:testSubmission._id} as any);
     router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)
     }
 

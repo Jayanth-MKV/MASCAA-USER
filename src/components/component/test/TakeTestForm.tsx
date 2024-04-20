@@ -44,7 +44,7 @@ const TakeTestForm = ({selected,setSelected}:any) => {
 
   return (
     <div>   
-       {data!=undefined && isSuccess && <DropDown departments={data} value={selected} setValue={(e:any) => setSelected(e)} />}
+       {data!=undefined && isSuccess && <DropDown departments={data as any} value={selected} setValue={(e:any) => setSelected(e)} />}
     </div>
   )
 }

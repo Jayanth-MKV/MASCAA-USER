@@ -27,8 +27,8 @@ const EmotionsAudio = ({ data }: any) => {
                 "No Of Questions": vem[emo]
             }
         })
-       
-        setVem(arrVem);
+
+        setVem(arrVem as any);
     }
 
 
@@ -71,7 +71,7 @@ const EmotionsAudio = ({ data }: any) => {
 
                     {Vem.length == 0 &&
                         <Card className='h-[400px] flex flex-col justify-center'>
-                            <NoData text='no results'/>
+                            <NoData text='no results' />
                         </Card>
                     }
                 </CardContent>

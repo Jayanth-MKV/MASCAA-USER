@@ -87,7 +87,7 @@ export function UserRegister() {
       password: data.password,
       roll: data.roll,
       department: department
-    }
+    } as any
     mutate(payload);
     console.log("submitted data", payload);
   }
@@ -119,7 +119,7 @@ export function UserRegister() {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit as any)}>
           <div className="space-y-2">
             <Label htmlFor="name">Id / Roll</Label>
             <Input {...register("roll")} />

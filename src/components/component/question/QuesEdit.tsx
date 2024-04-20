@@ -92,7 +92,7 @@ const QuesEdit = ({ testId, id, topic, content }: { testId: string, id: string, 
         console.log("submitted data", sdata);
         console.log(id);
         if (sdata && id) {
-            return mutate({ id, ...sdata });
+            return mutate({ id, ...sdata } as any);
         }
     }
 
@@ -138,7 +138,7 @@ const QuesEdit = ({ testId, id, topic, content }: { testId: string, id: string, 
                                         <FormItem>
                                             <FormLabel className='text-lg font-bold'>Content</FormLabel>
                                             <FormControl>
-                                                <Tiptap description={field.value} onChange={field.onChange} />
+                                                {/* <Tiptap description={field.value} onChange={field.onChange} /> */}
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

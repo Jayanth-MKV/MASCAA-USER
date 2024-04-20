@@ -1,13 +1,13 @@
 "use client"
 import { useEffect, useState } from 'react';
 
-const CountdownTimer = ({ startTime, endTime }) => {
+const CountdownTimer = ({ startTime, endTime }: any) => {
   const [timeLeft, setTimeLeft] = useState({ minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const currentTime = new Date();
-      const targetTime = new Date(endTime);
+      const currentTime:any = new Date();
+      const targetTime:any = new Date(endTime);
       const difference = targetTime - currentTime;
 
       if (difference > 0) {

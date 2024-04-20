@@ -37,7 +37,7 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
       }
       if (canvasRef && canvasRef.current && videoRef && videoRef.current && captureVideo) {
         // console.log("inside video play canvas ")
-        canvasRef.current.innerHTML = faceapi.createCanvas(videoRef.current);
+        (canvasRef as any).current.innerHTML = faceapi.createCanvas(videoRef.current);
         const displaySize = {
           width: videoWidth,
           height: videoHeight
@@ -47,7 +47,7 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
         // console.log(canvasRef.current)
         // console.log(videoRef.current)
 
-        const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
+        const detections = await faceapi.detectAllFaces((videoRef as any).current, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions().withAgeAndGender();
         // console.log(detections)
         if (data && detections.length != 0) {
           setData(detections)
@@ -55,10 +55,10 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
         // console.log(canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight))
 
-        canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
-        canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
+        canvasRef && canvasRef.current && (canvasRef.current as any).getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
+        canvasRef && canvasRef.current && faceapi.draw.drawDetections((canvasRef as any).current, resizedDetections);
         // canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
-        canvasRef && canvasRef.current && faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
+        canvasRef && canvasRef.current && faceapi.draw.drawFaceExpressions((canvasRef as any).current, resizedDetections);
       }
     }, 50)
   }
@@ -73,7 +73,7 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
 
 
       // const videoElement = document.getElementById("camera-preview");
-      let video = videoRef.current;
+      let video:any = videoRef.current;
       console.log(video)
       if (video) {
         video.srcObject = stream;
@@ -142,11 +142,11 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
         (
           <div className={`flex justify-center relative`}>
                 <>
-                  <video ref={videoRef} height={videoHeight} width={videoWidth} style={{ position: 'absolute' }} className={`h-[${videoHeight}px]`} muted />
+                  <video ref={videoRef as any} height={videoHeight} width={videoWidth} style={{ position: 'absolute' }} className={`h-[${videoHeight}px]`} muted />
             {captureVideo ?
               modelsLoaded ?
 
-                  <canvas ref={canvasRef} height={videoHeight} width={videoWidth} style={{ position: 'absolute' }} />
+                  <canvas ref={canvasRef as any} height={videoHeight} width={videoWidth} style={{ position: 'absolute' }} />
               :
               <div>Video loading...</div>
             :

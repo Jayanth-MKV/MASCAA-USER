@@ -95,8 +95,8 @@ const EditTest = ({ data, id }: any) => {
 
 
     const onSubmit = async (sdata: z.infer<typeof EditTestSchema>) => {
-        const utc = await toUniversalFormat(sdata.startTime);
-        const et = await addMinutesToDate(sdata.startTime, sdata?.durationMinutes);
+        const utc = await toUniversalFormat((sdata.startTime) as any);
+        const et = await addMinutesToDate((sdata.startTime) as any, sdata?.durationMinutes);
         const payload = {
             ...sdata,
             startTime: utc,
@@ -104,7 +104,7 @@ const EditTest = ({ data, id }: any) => {
         } satisfies EditTestType;
         console.log("submitted data", payload);
         if (payload) {
-            return mutate({ id, ...payload });
+            return mutate({ id, ...payload } as any);
         }
     }
 
@@ -138,7 +138,7 @@ const EditTest = ({ data, id }: any) => {
                         <FormItem>
                             <FormLabel className='text-lg font-bold'>Instructions</FormLabel>
                             <FormControl>
-                                <Tiptap description={field.value} onChange={field.onChange} />
+                                {/* <Tiptap description={field.value} onChange={field.onChange} /> */}
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -153,7 +153,7 @@ const EditTest = ({ data, id }: any) => {
                         <FormItem>
                             <FormLabel className='text-lg font-bold'>Guidelines</FormLabel>
                             <FormControl>
-                                <Tiptap description={field.value} onChange={field.onChange} />
+                                {/* <Tiptap description={field.value} onChange={field.onChange} /> */}
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -167,7 +167,7 @@ const EditTest = ({ data, id }: any) => {
                         <FormItem>
                             <FormLabel className='text-lg font-bold'>Terms and Conditions (If Any)</FormLabel>
                             <FormControl>
-                                <Tiptap description={field.value} onChange={field.onChange} />
+                                {/* <Tiptap description={field.value} onChange={field.onChange} /> */}
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -200,7 +200,7 @@ const EditTest = ({ data, id }: any) => {
                         <FormItem>
                             <FormLabel className='text-lg font-bold'>Test Keywords</FormLabel>
                             <FormControl>
-                                <FancyMultiSelect frameworks={TOPICS} value={field.value.map((item) => (item as any)?.value ? item : TOPICS.find((t) => t.value == item))} setValue={(i) => { field.onChange(i.value ? i.value : i); }} />
+                                <FancyMultiSelect frameworks={TOPICS} value={field.value.map((item) => (item as any)?.value ? item : TOPICS.find((t) => t.value == item))} setValue={(i:any) => { field.onChange(i.value ? i.value : i); }} />
                             </FormControl>
                             <FormDescription>
                                 what keywords describe your test? useful in searching the test

@@ -6,7 +6,7 @@ const SubmitTestPage = () => {
 
 
       useEffect(()=>{
-      history.pushState(null, null, location.href);
+      history.pushState(null, "", location.href);
       window.onpopstate = function () {
           history.go(1);
       };

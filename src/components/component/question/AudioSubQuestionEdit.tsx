@@ -106,7 +106,7 @@ const AudioSubQuesEdit = ({ testId, id, title, content, powerReference }: { test
         console.log("submitted data", sdata);
         console.log(id);
         if (sdata && id) {
-            return mutate({ id, ...payload });
+            return mutate({ id, ...payload } as any);
         }
     }
 
@@ -152,7 +152,7 @@ const AudioSubQuesEdit = ({ testId, id, title, content, powerReference }: { test
                                         <FormItem>
                                             <FormLabel className='text-lg font-bold'>Content</FormLabel>
                                             <FormControl>
-                                                <Tiptap description={field.value} onChange={field.onChange} />
+                                                {/* <Tiptap description={field.value} onChange={field.onChange} /> */}
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

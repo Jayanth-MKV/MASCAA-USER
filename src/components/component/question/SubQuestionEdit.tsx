@@ -101,7 +101,7 @@ const TextSubQuesEdit = ({ testId,id, title, content,correctAnswer }: { testId: 
         console.log("submitted data", sdata);
         console.log(id);
         if (sdata && id) {
-            return mutate({ id, ...payload });
+            return mutate({ id, ...payload } as any);
         }
     }
 
@@ -147,7 +147,7 @@ const TextSubQuesEdit = ({ testId,id, title, content,correctAnswer }: { testId: 
                                         <FormItem>
                                             <FormLabel className='text-lg font-bold'>Options</FormLabel>
                                             <FormControl>
-                                                <Tiptap description={field.value} onChange={field.onChange} />
+                                                {/* <Tiptap description={field.value} onChange={field.onChange} /> */}
                                             </FormControl>
                                             <FormDescription>we recommend options to be in the format A,B,C,D or 1,2,3,4, or any other single word</FormDescription>
                                             <FormMessage />

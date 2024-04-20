@@ -64,7 +64,7 @@ const PublishTest = ({ id,test }: { id: string,test:string }) => {
                 label: "Refetch",
                 onClick: () => refetch(),
             },
-        })
+        } as any)
 
     }
     //   console.log(data);
@@ -80,7 +80,7 @@ const PublishTest = ({ id,test }: { id: string,test:string }) => {
     const copyToClipboard = async () => {
         try {
 
-            const content = inp?.current?.value;
+            const content = (inp?.current as any)?.value;
             if (content || data) {
                 // Write the text to the clipboard
                 await navigator.clipboard.writeText(content || `${PUBLISH_URL}${data}`);
@@ -132,12 +132,12 @@ const PublishTest = ({ id,test }: { id: string,test:string }) => {
                         Share Link
                     </CardTitle>
                     <CardDescription>
-            {data!=undefined && data?.length!=0  && <SendEmail link={ `${PUBLISH_URL}${data}`} test={test}/>}
+            {data!=undefined && (data as any)?.length!=0  && <SendEmail link={ `${PUBLISH_URL}${data}`} test={test}/>}
                     </CardDescription>
                 </CardHeader>
                 <br className='space-y-5' />
             </Card>
-            {data!=undefined && data?.length!=0  && <CsvImports link={ `${PUBLISH_URL}${data}`} test={test}/>}
+            {data!=undefined && (data as any)?.length!=0  && <CsvImports link={ `${PUBLISH_URL}${data}`} test={test}/>}
 
         </div>
     )

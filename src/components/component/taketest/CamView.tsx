@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react'
 
 
 import * as faceapi from 'face-api.js';
+import { FRONTEND_URL } from '@/utils/constants';
 
 
 
@@ -48,7 +49,7 @@ const CamView = ({ videoHeight, videoWidth, isOk, setisOk, data, setData }: any)
       }
       if (canvasRef && canvasRef.current && videoRef && videoRef.current && captureVideo) {
         // console.log("inside video play canvas ")
-        canvasRef.current.innerHTML = faceapi.createCanvas(videoRef.current);
+        (canvasRef.current as any).innerHTML = faceapi.createCanvas(videoRef.current);
         const displaySize = {
           width: videoWidth,
           height: videoHeight
@@ -66,7 +67,7 @@ const CamView = ({ videoHeight, videoWidth, isOk, setisOk, data, setData }: any)
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
         // console.log(canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight))
 
-        canvasRef && canvasRef.current && canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
+        canvasRef && canvasRef.current && (canvasRef.current as any).getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
         canvasRef && canvasRef.current && faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
         // canvasRef && canvasRef.current && faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
         canvasRef && canvasRef.current && faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
@@ -85,7 +86,7 @@ const CamView = ({ videoHeight, videoWidth, isOk, setisOk, data, setData }: any)
 
 
       // const videoElement = document.getElementById("camera-preview");
-      let video = videoRef.current;
+      let video:any = videoRef.current;
       console.log(video)
       if (video) {
         video.srcObject = stream;
@@ -99,13 +100,13 @@ const CamView = ({ videoHeight, videoWidth, isOk, setisOk, data, setData }: any)
   };
 
   const loadModels = async () => {
-    const MODEL_URL = '/models';
+    const MODEL_URL = `${FRONTEND_URL}/models`;
 
     await Promise.all([
-      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-      faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL),
-      faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
-      faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+      await faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL),
+      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+      await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
     ]).then(async () => {
       setModelsLoaded(true);
     });
@@ -143,8 +144,8 @@ const CamView = ({ videoHeight, videoWidth, isOk, setisOk, data, setData }: any)
               <div className=''>
                 <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
 
-                  <video ref={videoRef} height={videoHeight} width={videoWidth} style={{ position: 'absolute' }} muted />
-                  <canvas ref={canvasRef} height={videoHeight} width={videoWidth} style={{ position: 'absolute' }} />
+                  <video ref={videoRef as any} height={videoHeight} width={videoWidth} style={{ position: 'absolute' }} muted />
+                  <canvas ref={canvasRef as any} height={videoHeight} width={videoWidth} style={{ position: 'absolute' }} />
                 </div>
               </div>
               :

@@ -53,7 +53,7 @@ const payload ={
 }
 
         if (email && email?.length != 0 && id) {
-            mutate({ "data": payload });
+            mutate({ "data": payload } as any);
         }
     }
 

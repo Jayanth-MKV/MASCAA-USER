@@ -27,8 +27,8 @@ const EmotionsVideo = ({ data }: any) => {
                 "No Of Questions": vem[emo]
             }
         })
-       
-        setVem(arrVem);
+
+        setVem(arrVem as any);
     }
 
 
@@ -72,7 +72,7 @@ const EmotionsVideo = ({ data }: any) => {
 
                     {Vem.length == 0 &&
                         <Card className='h-[400px]'>
-                            <NoData />
+                            <NoData text="" />
                         </Card>
                     }
                 </CardContent>

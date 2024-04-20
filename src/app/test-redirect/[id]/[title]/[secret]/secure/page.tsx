@@ -95,7 +95,7 @@ if (isPending) {
 const onSubmit = async () => {
   console.log(params)
   if (params?.id && userId) {
-      mutate({ "testId": params?.id,"userId":userId });
+      mutate({ "testId": params?.id,"userId":userId } as any);
   }
 }
 
@@ -131,7 +131,7 @@ const onSubmit = async () => {
 
           <Card className='min-w-1/2 lg:w-1/2'>
             <CardHeader>
-              <CardTitle className='text-2xl'>{params.title.replace(/%20/g, " ")}</CardTitle>
+              <CardTitle className='text-2xl'>{(params.title as string).replace(/%20/g, " ")}</CardTitle>
               <CardDescription></CardDescription>
             </CardHeader>
             <CardContent>
