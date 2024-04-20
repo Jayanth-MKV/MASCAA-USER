@@ -101,7 +101,7 @@ const CamView = ({ videoHeight, videoWidth, isOk, setisOk, data, setData }: any)
   const loadModels = async () => {
     const MODEL_URL = '/models';
 
-    Promise.all([
+    await Promise.all([
       faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
       faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL),
       faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
