@@ -70,6 +70,7 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
       const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 300 } });
       setMicPermission(true);
       setCameraPermission(true);
+      setCaptureVideo(true);
 
 
       // const videoElement = document.getElementById("camera-preview");
@@ -78,7 +79,6 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
       if (video) {
         video.srcObject = stream;
         video.play();
-        setCaptureVideo(true);
         // videoElement.srcObject = stream;
       }
     } catch (error) {
@@ -89,7 +89,7 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
   const loadModels = async () => {
     const MODEL_URL = '/models';
 
-    Promise.all([
+    await Promise.all([
       faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
       faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL),
       faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
@@ -104,13 +104,19 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
 
     loadModels()
     console.log("modelsLoaded");
-    // enablePermissions();
+    enablePermissions();
   }, []);
 
   // useEffect(() => {
   //   enablePermissions();
   //   console.log("permissions enabled : ",videoRef.current);
   // }, [videoRef]);
+
+  useEffect(() => {
+
+    enablePermissions();
+    console.log("videref set");
+  }, [videoRef]);
 
   useEffect(() => {
 
@@ -121,17 +127,7 @@ const CamViewNoDialog = ({ videoHeight, videoWidth, isOk, setisOk, data, setData
 
   }, [videoRef, canvasRef, modelsLoaded, captureVideo]);
 
-  // const stopCamera = () =>
-  //   videoRef?.current?.srcObject &&
-  //   videoRef.current.srcObject.getTracks().forEach((t) => t.stop());
 
-  useEffect(() => {
-    enablePermissions();
-
-    const ref = videoRef?.current;
-    console.log(ref)
-
-  }, []);
 
 
   return (

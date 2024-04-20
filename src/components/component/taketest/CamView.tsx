@@ -14,7 +14,6 @@ import React, { useEffect, useState } from 'react'
 
 
 import * as faceapi from 'face-api.js';
-import { FRONTEND_URL } from '@/utils/constants';
 
 
 
@@ -100,13 +99,13 @@ const CamView = ({ videoHeight, videoWidth, isOk, setisOk, data, setData }: any)
   };
 
   const loadModels = async () => {
-    const MODEL_URL = `${FRONTEND_URL}/models`;
+    const MODEL_URL = `/models`;
 
     await Promise.all([
-      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-      await faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL),
-      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
-      await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+       faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+       faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL),
+       faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+       faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
     ]).then(async () => {
       setModelsLoaded(true);
     });
@@ -119,6 +118,13 @@ const CamView = ({ videoHeight, videoWidth, isOk, setisOk, data, setData }: any)
     console.log("modelsLoaded");
     enablePermissions();
   }, []);
+
+
+  useEffect(() => {
+
+    enablePermissions();
+    console.log("videref set");
+  }, [videoRef]);
 
   useEffect(() => {
 
