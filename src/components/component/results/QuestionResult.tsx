@@ -87,10 +87,10 @@ console.log(data)
         </CardDescription>
 </CardHeader>
 <CardContent className='h-[400px] flex justify-center items-center'>
-{(data.audiotextRelevancy==0 || data.audiotextRelevancy=="" || !data?.audiotextRelevancy) && <div className='font-bold'>
+{( data.audiotextRelevancy==="" || (data?.audiotextRelevancy!=0)) && <div className='font-bold'>
    <PartialResultsRel id={id} index={idx} />
     </div>}
-    {data.audiotextRelevancy!="" && data.audiotextRelevancy &&
+    {data.audiotextRelevancy!=="" && data.audiotextRelevancy!=undefined &&
 <ResultsPieChart confidence={data.audiotextRelevancy}/>
 }
 </CardContent>
