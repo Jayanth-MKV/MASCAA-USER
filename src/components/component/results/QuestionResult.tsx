@@ -53,11 +53,11 @@ console.log(data)
     </CardDescription>
 </CardHeader>
 <CardContent className='min-h-[400px] flex items-center justify-center'>
-{data.audioEmotion=="" &&
+{(data.audioEmotion=="" || data.audioEmotion=="NA" )&&
  <div className='font-bold'>
     <PartialResultsAudio id={id} index={idx}/>
     </div>}
-{data.audioEmotion!="" && 
+{(data.audioEmotion!="" && data.audioEmotion!="NA") && 
 <EmotionsAudio data={[data]}/>
 }
 </CardContent>
