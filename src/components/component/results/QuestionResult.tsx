@@ -81,16 +81,16 @@ console.log(data)
     <CardTitle>Audio Relevancy</CardTitle>
     <CardDescription>
         This is the speech converted to text and then evaluated using reference answer. 
-        <div>
-        0% confidence might be due to no submission
+        <div className='text-red-500'>
+        1% confidence might be due to no submission/poor relevance <br />
         </div>
         </CardDescription>
 </CardHeader>
 <CardContent className='h-[400px] flex justify-center items-center'>
-{( data.audiotextRelevancy==="" || (data?.audiotextRelevancy!=0)) && <div className='font-bold'>
+{(data.audiotextRelevancy==0 || data.audiotextRelevancy=="" || !data?.audiotextRelevancy) && <div className='font-bold'>
    <PartialResultsRel id={id} index={idx} />
     </div>}
-    {data.audiotextRelevancy!=="" && data.audiotextRelevancy!=undefined &&
+    {data.audiotextRelevancy!="" && data.audiotextRelevancy &&
 <ResultsPieChart confidence={data.audiotextRelevancy}/>
 }
 </CardContent>
