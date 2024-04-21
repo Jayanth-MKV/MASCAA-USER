@@ -189,9 +189,11 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
     if (timeLeft < 3) {
       if (sub?.type == "TEXT") {
         handleTextAnswer(TIME/3 - timeLeft);
+        setTimeLeft(0);
       }
       if (sub?.type == "AUDIO") {
         handleAudioAnswer(AudioOp);
+        setAudioOp({ text: '', file: null });
       }
     }
   }, [timeLeft])
