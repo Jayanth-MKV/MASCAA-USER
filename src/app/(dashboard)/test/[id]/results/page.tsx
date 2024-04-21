@@ -25,10 +25,10 @@ const Results = async ({ params, searchParams }: {
 }) => {
 
   const data1 = await getSubmission(params?.id);
-    console.log(data1);
+  // console.log(data1);
 
   const data = await getSubResults(params?.id);
-  console.log(data);
+  // console.log(data);
   const results = data["eval"]["results"];
   // console.log(results);
 
@@ -46,7 +46,7 @@ const Results = async ({ params, searchParams }: {
   let correctAns = 0;
   let incorrectAns = 0;
   let notPartial = results.every((item:any)=>{
-    if(item.correctAnswer!=''){
+    if(item.correctAnswer!==''){
       return true;
     }
     else{
@@ -54,6 +54,7 @@ const Results = async ({ params, searchParams }: {
     }
   });
   let notQPartial = data["questions"].every((item:any)=>{
+    // console.log(item)
     if(item){
       return true;
     }
