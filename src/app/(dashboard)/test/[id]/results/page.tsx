@@ -1,8 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getSubmission, getSubResults, getTestSubmissions } from '@/hooks/server/test/results';
-import Image from 'next/image';
+import { getSubResults } from '@/hooks/server/test/results';
 import React from 'react'
 import Loading from '../../loading';
 import Emotions from '@/components/component/results/Emotions';
@@ -23,9 +21,6 @@ const Results = async ({ params, searchParams }: {
   params: { id: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
-
-  const data1 = await getSubmission(params?.id);
-  // console.log(data1);
 
   const data = await getSubResults(params?.id);
   // console.log(data);
