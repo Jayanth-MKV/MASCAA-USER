@@ -48,16 +48,16 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
   )
 
 
-  const setLocal = (data: any) => {
+  const setLocal = useCallback((data: any) => {
     localStorage.setItem('stopped-area', JSON.stringify(data));
-  }
+  },[]);
 
-  const getLocal = () => {
+  const getLocal = useCallback(() => {
     const data = localStorage.getItem('stopped-area');
     if (data) {
       return JSON.parse(data);
     }
-  }
+  },[]);
 
   const handleAudioNext= useCallback(() => {
     handleAudioAnswer(AudioOp);
@@ -80,12 +80,12 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
   },[answer]);
 
 
-  const handleSubmitNext = () => {
+  const handleSubmitNext = useCallback(() => {
     console.log("Submit");
     window.localStorage.removeItem("stopped-area");
     handleSubmit();
   }
-
+,[]);
 
 
   // run at start

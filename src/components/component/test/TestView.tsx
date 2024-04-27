@@ -35,7 +35,8 @@ const ViewTest = ({ test,userId }:any) => {
   
   useEffect(() => {
     window.localStorage.removeItem("stopped-area");
-  
+    window.localStorage.setItem("stopped-area",JSON.stringify({ index:0, subType: "TEXT", time: 60 }));
+  window.localStorage.clear();
   }, [])
   
 
