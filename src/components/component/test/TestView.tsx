@@ -32,6 +32,12 @@ const ViewTest = ({ test,userId }:any) => {
     router.replace(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure?userId=${userId}`);
     router.refresh();
   }
+  
+  useEffect(() => {
+    window.localStorage.removeItem("stopped-area");
+  
+  }, [])
+  
 
 
   return (
