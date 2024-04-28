@@ -1,14 +1,14 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
-import { CardTitle, CardDescription, CardContent, Card } from "@/components/ui/card"
 import { ReactNode } from "react"
 import { LogoutPopUp } from "../auth/logout-alert"
 import { cookies } from "next/headers"
 import { BellIcon, FileEditIcon, FileIcon, HomeIcon, Package2Icon, SearchIcon } from "../../icons/page"
 import { DrawerDemo } from "./mobile-nav"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import Navbar from "./Navbar"
 
 export function HomePage({ children }: { children: ReactNode }) {
   const cuser:any = cookies().get('s_user') || "{value:'{}'}";
@@ -16,12 +16,13 @@ export function HomePage({ children }: { children: ReactNode }) {
   // console.log(cookie)
   console.log(user)
 
+
   return (
     <div className="grid min-h-screen sm:max-h-screen md:overflow-hidden  w-full min-w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden overflow-hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[100px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="#">
+            <Link className="flex items-center gap-2 font-semibold" href="/">
               <Package2Icon className="h-6 w-6" />
               <span className="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">MASCCA</span>
             </Link>
@@ -30,37 +31,26 @@ export function HomePage({ children }: { children: ReactNode }) {
               <span className="sr-only">Toggle notifications</span>
             </Button>
           </div>
-          <nav className="grid items-start px-4 text-sm font-medium">
-            <Link
-              className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900  transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-              href="/home"
-            >
-              <HomeIcon className="h-4 w-4" />
-              Home
-            </Link>
-            <Link
-              className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900  transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-              href="/test"
-            >
-              <FileIcon className="h-4 w-4" />
-              Tests
-            </Link>
-            <Link
-              className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900  transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-              href="/test/available"
-            >
-              <FileIcon className="h-4 w-4" />
-              Available Tests
-            </Link>
-            <Link
-              className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900  transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-              href="/test/take"
-            >
-              <FileEditIcon className="h-4 w-4" />
-              Take Test
-            </Link>
-          </nav>
-          <div className="mt-auto p-5 flex justify-between border-gray border-t-2 border-solid">
+          <Navbar />
+          <div className="mt-auto p-4">
+            <Card x-chunk="dashboard-02-chunk-0">
+              <CardHeader className="p-2 pt-0 md:p-4">
+                <CardTitle>Upgrade to Pro</CardTitle>
+                <CardDescription>
+                  Unlock all features and get unlimited access to our support
+                  team.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+                <Link id="tour-step-upgrade" href="/pricing">
+                <Button size="sm" className="w-full">
+                  Upgrade
+                </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="p-5 flex justify-between border-gray border-t-2 border-solid">
 
 
             {user && user["profile"] ? <img
@@ -79,7 +69,7 @@ export function HomePage({ children }: { children: ReactNode }) {
 
             <h1 className="font-bold ">
               <span className="font-semibold font-mono">
-                {user && 
+                {user && user.name && 
                 <>
                 {user["name"]}
                 </>
@@ -125,7 +115,24 @@ export function HomePage({ children }: { children: ReactNode }) {
             <h1 className="mt-9  hidden md:block text-end text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Member Dashboard</h1>
           </div>
           <DrawerDemo>
-
+          <div className="p-4">
+            <Card x-chunk="dashboard-02-chunk-0">
+              <CardHeader className="p-4">
+                <CardTitle>Upgrade to Pro</CardTitle>
+                <CardDescription>
+                  Unlock all features and get unlimited access to our support
+                  team.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+              <Link href="/pricing">
+                <Button size="sm" className="w-full">
+                  Upgrade
+                </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
             <div className="mt-auto p-5 flex justify-between border-gray border-t-2 border-solid">
 
 

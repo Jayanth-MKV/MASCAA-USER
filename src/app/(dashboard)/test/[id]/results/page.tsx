@@ -1,8 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getSubmission, getSubResults, getTestSubmissions } from '@/hooks/server/test/results';
-import Image from 'next/image';
+import { getSubResults } from '@/hooks/server/test/results';
 import React from 'react'
 import Loading from '../../loading';
 import Emotions from '@/components/component/results/Emotions';
@@ -24,11 +22,8 @@ const Results = async ({ params, searchParams }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
 
-  const data1 = await getSubmission(params?.id);
-    console.log(data1);
-
   const data = await getSubResults(params?.id);
-  console.log(data);
+  // console.log(data);
   const results = data["eval"]["results"];
   // console.log(results);
 
@@ -46,7 +41,7 @@ const Results = async ({ params, searchParams }: {
   let correctAns = 0;
   let incorrectAns = 0;
   let notPartial = results.every((item:any)=>{
-    if(item.correctAnswer!=''){
+    if(item.correctAnswer!==''){
       return true;
     }
     else{
@@ -54,6 +49,7 @@ const Results = async ({ params, searchParams }: {
     }
   });
   let notQPartial = data["questions"].every((item:any)=>{
+    // console.log(item)
     if(item){
       return true;
     }

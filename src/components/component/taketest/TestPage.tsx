@@ -48,16 +48,16 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
   )
 
 
-  const setLocal = (data: any) => {
-    localStorage.setItem('stopped-area', JSON.stringify(data));
-  }
+  const setLocal = useCallback((data: any) => {
+    window.localStorage.setItem('stopped-area', JSON.stringify(data));
+  },[]);
 
-  const getLocal = () => {
-    const data = localStorage.getItem('stopped-area');
+  const getLocal = useCallback(() => {
+    const data = window.localStorage.getItem('stopped-area');
     if (data) {
       return JSON.parse(data);
     }
-  }
+  },[]);
 
   const handleAudioNext= useCallback(() => {
     handleAudioAnswer(AudioOp);
@@ -80,12 +80,12 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
   },[answer]);
 
 
-  const handleSubmitNext = () => {
+  const handleSubmitNext = useCallback(() => {
     console.log("Submit");
     window.localStorage.removeItem("stopped-area");
     handleSubmit();
   }
-
+,[]);
 
 
   // run at start
@@ -189,9 +189,11 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
     if (timeLeft < 3) {
       if (sub?.type == "TEXT") {
         handleTextAnswer(TIME/3 - timeLeft);
+        setTimeLeft(0);
       }
       if (sub?.type == "AUDIO") {
         handleAudioAnswer(AudioOp);
+        setAudioOp({ text: '', file: null });
       }
     }
   }, [timeLeft])

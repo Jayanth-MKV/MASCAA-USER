@@ -18,7 +18,7 @@ const PartialResults = ({ id }: any) => {
       console.log(data)
       toast({
         title: "success",
-        description: "Revaluated Results"
+        description: "Reloaded Results"
       })
       router.push(`/test/${id}/results`);
       router.refresh();
@@ -27,7 +27,7 @@ const PartialResults = ({ id }: any) => {
       console.log(e)
       toast({
         variant: "destructive",
-        title: "Cannot Revaluate",
+        title: "Cannot Reload",
         description: e?.message
       })
     },
@@ -40,7 +40,7 @@ const PartialResults = ({ id }: any) => {
 
 
   const onSubmit = async () => {
-    console.log(id)
+    // console.log(id)
     mutate({ id: id } as any);
 
   }

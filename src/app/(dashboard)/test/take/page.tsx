@@ -53,7 +53,7 @@ const Newtest = () => {
     Taketest,
     (data: any) => {
       toast({
-        title: "Test Navigated Successfully",
+        title: "Test Navigating please wait!!",
         description: "success"
       })
       router.push(`/test-redirect/${data._id}/${data.title}/${data.testSecret}/`);

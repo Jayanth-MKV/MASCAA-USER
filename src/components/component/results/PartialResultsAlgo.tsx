@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/components/ui/use-toast'
 import { useApiSend } from '@/hooks/network/rq'
-import { ReEvalAlgo, ReEvalTest } from '@/hooks/server/test/results'
+import { ReEvalAlgo } from '@/hooks/server/test/results'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -40,7 +40,7 @@ const PartialResultsAlgo = ({ id }: any) => {
 
 
   const onSubmit = async () => {
-    console.log(id)
+    // console.log(id)
     mutate({ id: id } as any);
 
   }

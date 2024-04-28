@@ -10,7 +10,7 @@ const SubmitTestPage = () => {
       window.onpopstate = function () {
           history.go(1);
       };
-
+      window.localStorage.removeItem("stopped-area");
   },[])
 
 

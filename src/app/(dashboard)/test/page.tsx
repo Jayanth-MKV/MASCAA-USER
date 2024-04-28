@@ -1,10 +1,10 @@
 "use client"
 import { Button } from '@/components/ui/button'
-import { FileTextIcon, PlusCircledIcon, Share1Icon, Share2Icon } from '@radix-ui/react-icons'
+import { FileTextIcon, Share2Icon } from '@radix-ui/react-icons'
 import React from 'react'
 import { useToast } from "@/components/ui/use-toast"
 import { getUserTests } from '@/hooks/server/test/url'
-import { useApiGet, useApiSend } from '@/hooks/network/rq'
+import { useApiGet } from '@/hooks/network/rq'
 import { usePathname, useRouter } from 'next/navigation'
 import { FileEditIcon } from '@/components/icons/page'
 import {
@@ -58,8 +58,6 @@ const Page = () => {
       description: "Cannot get tests"
     })
 
-  console.log(data);
-
 
 
   if (isLoading) {
@@ -105,7 +103,7 @@ const Page = () => {
             })?.map((test: any, idx: number) => (
               <article key={idx} className="flex max-w-xl flex-col items-center justify-between">
                 <Card className='h-[400px] w-[280px] flex flex-col justify-between'>
-                  {test?.submitted && <Badge className='bg-green-400'>submitted</Badge>}
+                  {test?.submitted && <Badge className='bg-green-600'>submitted</Badge>}
                   {!test?.submitted && <Badge variant={'destructive'}>Not submitted</Badge>}
                   <CardHeader>
                     <CardTitle className='text-2xl overflow-clip max-h-[70px] h-[70px]'>{test.title.toUpperCase()}</CardTitle>
@@ -130,7 +128,9 @@ const Page = () => {
                       }}>
                         <FileTextIcon className="mr-2 h-4 w-4" /> Your Answers
                       </Button>
-                      <Button className="w-full" onClick={() => {
+                      <Button 
+              id="tour-step-results"
+                      className="w-full" onClick={() => {
                         router.push("/test/" + test._id + "/results")
                       }}>
                         <FileEditIcon className="mr-2 h-4 w-4" /> Results

@@ -14,6 +14,9 @@ export function convertDateToIst(date:string,options?:any){
   //   timeStyle: "short",
   // }
   );
+  if(formattedDate.startsWith("Invalid")){
+    return null;
+  }
 
   return formattedDate;
 }
