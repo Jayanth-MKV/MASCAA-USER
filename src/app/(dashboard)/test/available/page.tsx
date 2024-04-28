@@ -6,7 +6,6 @@ import { useToast } from "@/components/ui/use-toast"
 import { getAllAvailableTests, getOngTests } from '@/hooks/server/test/url'
 import { useApiGet } from '@/hooks/network/rq'
 import { usePathname, useRouter } from 'next/navigation'
-import { FileEditIcon } from '@/components/icons/page'
 import {
   Card,
   CardContent,
@@ -17,7 +16,6 @@ import {
 } from "@/components/ui/card"
 import { convertDateToIst } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import { SendHorizonalIcon } from 'lucide-react'
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import Loading from '../loading'
 import NoData from '@/components/component/home/NoData'
@@ -29,6 +27,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 
 const Page = () => {
@@ -62,7 +70,7 @@ const Page = () => {
     // refetch();
   }
 
-  // console.log(data);
+  console.log("------------",data);
 
 
 
@@ -111,10 +119,10 @@ const Page = () => {
   </BreadcrumbList>
 </Breadcrumb>
       <div className="bg-white py-24 sm:py-10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 md:items-center gap-10 flex flex-col lg:flex-row  md:justify-between">
+        <div className="lg:sticky lg:top-0 lg:pt-3 mx-auto max-w-7xl px-6 lg:px-8 md:items-center gap-10 flex flex-col lg:flex-row  md:justify-between">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Available Tests</h2>
-            <p className="mt-2 text-lg leading-8 text-gray-600">Create Tests and Evaluate Confidence </p>
+            <p className="mt-2 text-lg leading-8 text-gray-600">Take Free Tests and Evaluate Confidence </p>
           </div>
 
         </div>
@@ -141,15 +149,26 @@ const Page = () => {
                   </ScrollArea>
                   <CardFooter>
                     <div className='flex flex-col gap-5 w-full'>
-                      <Button className="w-full" onClick={() => {
-                        router.push("/test/" + test._id+"?tab=publish");
-                      }}>
-                        <FileTextIcon className="mr-2 h-4 w-4" /> View
-                      </Button>
+                    <Dialog>
+  <DialogTrigger>
+    <Button className="w-full">
+    View
+    </Button>
+    </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>{test?.title}</DialogTitle>
+      <DialogDescription>
+        {test?.about}
+      </DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>
+
                       <Button className="w-full" onClick={() => {
                         router.push("/test/" + test._id+"/results");
                       }}>
-                        <DashboardIcon className="mr-2 h-4 w-4" /> Results
+                        <DashboardIcon className="mr-2 h-4 w-4" /> Take Test
                       </Button>
                     </div>
                   </CardFooter>

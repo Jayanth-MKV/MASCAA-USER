@@ -107,10 +107,11 @@ export const getTakenTests = async () => {
 
 
 export const getAllAvailableTests = async () => {
-  return await request({
+  const  d =  await request({
     method: "GET",
     url: `${BASE_URL}/all`,
   });
+  return d;
 };
 
 

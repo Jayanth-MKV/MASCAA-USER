@@ -33,11 +33,11 @@ const ViewTest = ({ test,userId }:any) => {
     router.refresh();
   }
   
-  useEffect(() => {
-    window.localStorage.removeItem("stopped-area");
-    window.localStorage.setItem("stopped-area",JSON.stringify({ index:0, subType: "TEXT", time: 60 }));
-  window.localStorage.clear();
-  }, [])
+  // useEffect(() => {
+  //   window.sessionStorage.removeItem("stopped-area");
+  //   window.localStorage.setItem("stopped-area",JSON.stringify({ index:0, subType: "TEXT", time: 60 }));
+  // window.localStorage.clear();
+  // }, [])
   
 
 

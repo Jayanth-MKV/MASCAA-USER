@@ -49,11 +49,11 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
 
 
   const setLocal = useCallback((data: any) => {
-    localStorage.setItem('stopped-area', JSON.stringify(data));
+    window.localStorage.setItem('stopped-area', JSON.stringify(data));
   },[]);
 
   const getLocal = useCallback(() => {
-    const data = localStorage.getItem('stopped-area');
+    const data = window.localStorage.getItem('stopped-area');
     if (data) {
       return JSON.parse(data);
     }
