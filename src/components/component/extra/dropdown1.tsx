@@ -19,9 +19,20 @@ import {
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons"
 
 
-export function DropDown({ departments: frameworks, value, setValue }: { departments: { value: string, label: string }[], value: string, setValue: any }) {
+export function DropDown1({ departments: frameworks, value, setValue,searchQuery, setSearchQuery }: { departments: { value: string, label: string }[], value: string, setValue: any,searchQuery:string, setSearchQuery:any }) {
     const [open, setOpen] = React.useState(false)
+    
+    // React.useEffect(() => {
+    //     if (open) {
+    //         setSearchQuery('');
+    //         setOpen(false);
+    //     }
+    // }, [open]);
 
+    React.useEffect(() => {
+        console.log(frameworks)
+        }, [frameworks])
+        
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -35,31 +46,37 @@ export function DropDown({ departments: frameworks, value, setValue }: { departm
                     {value
                         ? frameworks.find((framework) => framework.value === value)?.label
                         : "Select Option..."}
+                        {/* {value ? value : "Select Option..."} */}
                     <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[300px] p-0">
                 <Command>
-                    <CommandInput placeholder="Search framework..." />
-                    <CommandEmpty>Not found.</CommandEmpty>
+                <CommandInput
+                        placeholder="search test..."
+                        value={searchQuery}
+                        onValueChange={(e) => setSearchQuery(e)}
+                    />                    
                     <CommandList>
-                        {frameworks.map((framework) => (
-                            <CommandItem
-                                key={framework.value}
-                                value={framework.value}
-                                onSelect={(currentValue) => {
-                                    setValue(currentValue === value ? "" : currentValue)
-                                    setOpen(false)
-                                }}
-                            >
+                        {frameworks?.map((framework) => (
+                            <>
+                             <div
+                             className="p-1 cursor-grab"
+                                 key={framework.value}
+                                 onClick={() => {
+                                     setValue(framework.value)
+                                     setOpen(false)
+                                 }}
+                             >
                                 <CheckIcon
                                     className={cn(
                                         "mr-2 h-4 w-4",
                                         value === framework.value ? "opacity-100" : "opacity-0"
                                     )}
-                                />
+                                    />
                                 {framework.label}
-                            </CommandItem>
+                            </div>
+                                    </>
                         ))}
                     </CommandList>
                 </Command>

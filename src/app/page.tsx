@@ -66,7 +66,7 @@ export default function Home() {
           priority
         /> */}
        
-       <iframe width="860" height="515" src="https://www.youtube.com/embed/3mBNmkHbHKs?si=GkpuYh2WD89gfN3o" title="MASCCA " allow=" autoplay;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+       <iframe width="860" height="515" src="https://www.youtube.com/embed/3mBNmkHbHKs?si=GkpuYh2WD89gfN3o" title="MASCCA " allow=" autoplay;" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
       </div>
 

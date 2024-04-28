@@ -12,7 +12,7 @@
   export default function Meet15min() {
 	useEffect(()=>{
 	  (async function () {
-		const cal = await getCalApi({});
+		const cal = await getCalApi("");
 		cal("ui", {"styles":{"branding":{"brandColor":"#000000"}},"hideEventTypeDetails":false,"layout":"month_view"});
 	  })();
 	}, [])

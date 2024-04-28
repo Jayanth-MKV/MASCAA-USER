@@ -1,10 +1,9 @@
 "use client"
 import React, { useDeferredValue, useEffect, useState } from 'react'
-import { DropDown } from '../extra/dropdown'
 import { getSearch } from '@/hooks/server/test/url';
 import { useApiSend } from '@/hooks/network/rq';
-import Loading from '@/app/(dashboard)/test/loading';
 import { useToast } from '@/components/ui/use-toast';
+import { DropDown1 } from '../extra/dropdown1';
 
 const TakeTestForm = ({selected,setSelected}:any) => {
 
@@ -46,7 +45,7 @@ const TakeTestForm = ({selected,setSelected}:any) => {
 
   return (
     <div>   
-       {data!=undefined && <DropDown searchQuery={searchQuery} setSearchQuery={setSearchQuery} departments={data as any} value={selected} setValue={(e:any) => setSelected(e)} />}
+       {data!=undefined && <DropDown1 searchQuery={searchQuery} setSearchQuery={setSearchQuery} departments={data as any} value={selected} setValue={(e:any) => setSelected(e)} />}
     </div>
   )
 }
