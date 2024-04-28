@@ -1,9 +1,10 @@
+import Contact from "@/components/component/home/Contact";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import React from "react";
 
-const PricingCard = ({ title, description, price, features,link,index }:any) => {
+const PricingCard = ({ title, description, price, features,link,button,index }:any) => {
   return (
     <Card className={"p-5 flex flex-col "+(index==1?"  border-2 border-orange-400":"p-5")}>
       <h3 className="mb-4 text-xl font-semibold">{title}</h3>
@@ -35,14 +36,17 @@ const PricingCard = ({ title, description, price, features,link,index }:any) => 
           </li>
         ))}
       </ul>
-      <Button 
-       className="">
-        <Link
+      {/* <Contact> */}
+      
+        {/* <Link
          href={link}
-        >
-        Get started
-        </Link>
-      </Button>
+        > */}
+        <>
+        <Contact name={button} />
+{/* {button} */}
+        </>
+        {/* </Link> */}
+          {/* </Contact> */}
     </Card>
   );
 };
@@ -59,7 +63,8 @@ const PricingSection = () => {
         "No setup, or hidden fees",
         "Test size: 50 users",
       ],
-      link:""
+      link:"",
+      button:"Start Just Now"
     },
     {
       title: "Team",
@@ -72,7 +77,8 @@ const PricingSection = () => {
         "Test size: 200 users",
         "$1 for every extra user",
       ],
-      link:""
+      link:"",
+      button:"Hire Quick & Easy"
     },
     {
       title: "Enterprise",
@@ -84,7 +90,8 @@ const PricingSection = () => {
         "Custom Plan",
         "Premium support: 36 months",
       ],
-      link:""
+      link:"",
+      button:"Contact Us"
     },
   ];
 

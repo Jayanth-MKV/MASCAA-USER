@@ -13,6 +13,9 @@ export default function Home() {
       <a href="/home">
       <Button>Home</Button>
       </a>
+      <a href="/pricing">
+      <Button>Pricing</Button>
+      </a>
       <a href="/test">
       <Button>Your Tests</Button>
       </a>

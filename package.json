@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.4.0",
     "@hookform/resolvers": "^3.3.4",
     "@nivo/pie": "^0.85.1",
     "@picovoice/cheetah-react": "^2.0.0",
