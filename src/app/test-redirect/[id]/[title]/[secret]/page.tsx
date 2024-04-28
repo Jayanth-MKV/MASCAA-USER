@@ -2,6 +2,7 @@ import ViewTest from '@/components/component/test/TestView';
 import { getTestU } from '@/hooks/server/test/url';
 import React from 'react'
 import { cookies } from 'next/headers'
+import Roadmap from '@/components/component/test/Roadmap';
 
 const page = async ({
     params,
@@ -26,7 +27,10 @@ const page = async ({
   return (
     <div>
       {test !=undefined &&  
-      <div className='py-10 flex'>
+      <div className='lg:p-10 flex flex-col gap-5'>
+        <div>
+        <Roadmap />
+        </div>
         <div>
       <ViewTest test={test} userId={user?.id} />
         </div>

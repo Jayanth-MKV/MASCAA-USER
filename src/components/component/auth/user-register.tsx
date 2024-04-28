@@ -147,9 +147,9 @@ export function UserRegister() {
         <Separator className="h-8 bg-transparent" />
           <Button className="w-full" type="submit">Sign up</Button>
         </form>
-        <Button onClick={handleOauth} className="w-full" variant="outline">
+        {/* <Button onClick={handleOauth} className="w-full" variant="outline">
           Sign up with Google
-        </Button>
+        </Button> */}
       </CardContent>
     </Card>
     </div>
