@@ -4,7 +4,24 @@ import { Test } from "@/types/types";
 const BASE_URL="test";
 
 
-export const getAllTests = async () => {
+export const getSearch = async ({searchquery}:{searchquery:string}) => {
+  const data =  await request({
+    method: "GET",
+    url: `${BASE_URL}/all/search?search=${searchquery}`,
+  });
+
+  const p = await data.map((test:{title:string,_id:string})=>{
+    return {
+      label:test?.title,
+      value:test?._id.toString(),
+    }
+  })
+  
+  return p;
+  };
+
+
+  export const getAllTests = async () => {
   const data =  await request({
     method: "GET",
     url: `${BASE_URL}/all`,
@@ -111,6 +128,7 @@ export const getAllAvailableTests = async () => {
     method: "GET",
     url: `${BASE_URL}/all`,
   });
+  console.log(d)
   return d;
 };
 

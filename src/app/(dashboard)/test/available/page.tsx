@@ -70,7 +70,6 @@ const Page = () => {
     // refetch();
   }
 
-  console.log("------------",data);
 
 
 
@@ -137,7 +136,8 @@ const Page = () => {
                 <Card className='h-[380px] w-[280px] flex flex-col justify-between'>
                   <CardHeader>
                     <CardTitle className='text-2xl overflow-clip max-h-[70px] h-[70px]'>{test.title.toUpperCase()} </CardTitle>
-                    <CardDescription>{convertDateToIst(test.createdAt)}</CardDescription>
+                    <CardDescription>{convertDateToIst(test.createdAt) || "AnyTime Available"}</CardDescription>
+                    <CardDescription><Badge className='bg-green-600'>Free</Badge></CardDescription>
                   </CardHeader>
                   <ScrollArea className="w-full p-2 whitespace-nowrap rounded-md border">
                     <CardContent className='flex gap-3 overflow-hidden max-h-[100px] h-fit'>
@@ -166,7 +166,7 @@ const Page = () => {
 </Dialog>
 
                       <Button className="w-full" onClick={() => {
-                        router.push("/test/" + test._id+"/results");
+                        router.push(`/test-redirect/${test._id}/${test?.title}/${test.testSecret}/`);
                       }}>
                         <DashboardIcon className="mr-2 h-4 w-4" /> Take Test
                       </Button>

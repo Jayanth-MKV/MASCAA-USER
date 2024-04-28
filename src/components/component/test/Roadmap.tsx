@@ -1,6 +1,6 @@
+"use client"
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowDown } from 'lucide-react';
-import React from 'react'
+import React, { useRef } from 'react'
 import step1 from "@/img/step-1.png"
 import step2 from "@/img/step-2.png"
 import step3 from "@/img/step-3.png"
@@ -10,6 +10,14 @@ import step5 from "@/img/step-5.png"
 import step6 from "@/img/step-6.png"
 import step7 from "@/img/step-7.png"
 import Image from 'next/image';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 
 const steps = [
     {
@@ -56,13 +64,25 @@ const steps = [
   ];
 
   const Roadmap = () => {
+    const plugin = useRef(
+      Autoplay({ delay: 3000, stopOnInteraction: false })
+    )
     return (
       <>
-        <h1 className='lg:text-2xl text-center font-bold mb-5'> Steps For Taking Test</h1>
-        <div className='flex flex-col flex-wrap items-center gap-5 justify-start md:w-[70%] mx-auto'>
+        {/* <div className='flex flex-col flex-wrap items-center gap-5 justify-start md:w-[70%] mx-auto'> */}
+        <Carousel 
+        
+        plugins={[plugin.current]}
+        // onMouseEnter={plugin.current.stop}
+        // onMouseLeave={plugin.current.reset}
+          orientation="vertical"
+          className='border border-black'
+          >
+  <CarouselContent className='h-[600px] '>
           {steps.map((step, index) => (
-            <React.Fragment key={index}>
-              <Card className='w-[500px]'>
+                <CarouselItem key={index} className='justify-center flex items-center'>
+            <React.Fragment>
+              <Card className='lg:h-[500px] lg:w-[500px]'>
                 <CardHeader>
                   <CardTitle>{step.title}</CardTitle>
                   <CardDescription className='py-3'>
@@ -74,10 +94,17 @@ const steps = [
                   <CardDescription>{step.description}</CardDescription>
                 </CardHeader>
               </Card>
-              {index < steps.length - 1 && <ArrowDown />}
+              {/* {index < steps.length - 1 && <ArrowDown />} */}
             </React.Fragment>
+              </CarouselItem>
           ))}
-        </div>
+         </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>
+ 
+        
+        {/* </div> */}
       </>
     );
   };
