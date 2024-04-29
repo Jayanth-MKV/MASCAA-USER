@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "@/providers/sessionprovider";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as T } from "@/components/ui/sonner"
+import { ThemeProvider } from "@/components/theme/theme-provider";
 
 const inter = Poppins({ weight:"500",subsets: ["latin"] , display: 'swap', adjustFontFallback: false});
 
@@ -22,9 +23,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} overflow-hidden`}>
         <Providers>
-          {children}
-          <Toaster />
-          <T />
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+        {children}
+        <Toaster />
+        </ThemeProvider>
+        <T />
         </Providers>
       </body>
     </html>

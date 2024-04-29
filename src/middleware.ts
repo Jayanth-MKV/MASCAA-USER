@@ -6,15 +6,15 @@ export function middleware(req: NextRequest) {
   const cookies = cookie.parse(req.headers.get("Cookie") || "");
   const token = cookies.token;
   const tokenFromOauth = req.cookies.get("token");
-  const tokenData =  req.cookies.get("s_user");
+  const tokenData = req.cookies.get("s_user");
 
   console.log({
-    tokenData,token,tokenFromOauth
+    tokenData, token, tokenFromOauth
   })
 
   // console.log("inside middleware")
-  
-  
+
+
   if (req.nextUrl.pathname.startsWith("/oauth")) {
     console.log("inside oauth")
     const oAuthToken = req.nextUrl.searchParams.get("token") || "";
@@ -43,16 +43,16 @@ export function middleware(req: NextRequest) {
   }
 
 
-if (req.url.includes("signout")) {
-  console.log("inside signout")
+  if (req.url.includes("signout")) {
+    console.log("inside signout")
 
-  const response = NextResponse.redirect(new URL('/auth/signin', req.url))
+    const response = NextResponse.redirect(new URL('/auth/signin', req.url))
 
-  response.cookies.delete("token");
-  response.cookies.delete("s_user");
+    response.cookies.delete("token");
+    response.cookies.delete("s_user");
 
-  return response;
-    }
+    return response;
+  }
 
   // Decode the token if available
   // if (token) {
@@ -76,11 +76,11 @@ if (req.url.includes("signout")) {
   //   return NextResponse.redirect(new URL("/auth/signin", req.url));
   // }
 
-if((!token && !tokenData) && ((token && !tokenData) || (!token && tokenData))){
-  console.log("inside no token")
+  if ((!token && !tokenData) && ((token && !tokenData) || (!token && tokenData))) {
+    console.log("inside no token")
 
-  return NextResponse.redirect(new URL("/auth/signout", req.url));
-}
+    return NextResponse.redirect(new URL("/auth/signout", req.url));
+  }
 
   // // Example: Check if the user has access to a specific route
   // if (
@@ -93,19 +93,20 @@ if((!token && !tokenData) && ((token && !tokenData) || (!token && tokenData))){
   // }
 
   if (
-(    !token &&
-    !tokenFromOauth ||
-    !tokenData) &&
+    (!token &&
+      !tokenFromOauth ||
+      !tokenData) &&
+      !(req.nextUrl.pathname.length==1)&&
     !req.nextUrl.pathname.startsWith("/auth")
   ) {
-    console.log("cant enter homepage ");
+    // console.log("cant enter homepage ");
     return NextResponse.redirect(new URL("/auth/signin", req.url));
   }
 
 
 
-  if ((token || tokenFromOauth) && Object.keys(tokenData || {}).length!=0 && req.nextUrl.pathname.startsWith("/auth")) {
-    console.log("cant enter homepage ");
+  if ((token || tokenFromOauth) && Object.keys(tokenData || {}).length != 0 && req.nextUrl.pathname.startsWith("/auth")) {
+    // console.log("cant enter homepage ");
     return NextResponse.redirect(new URL("/home", req.url));
   }
 

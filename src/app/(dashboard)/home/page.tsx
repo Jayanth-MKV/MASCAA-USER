@@ -2,7 +2,6 @@ import React from 'react'
 
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -49,11 +48,9 @@ const Home = () => {
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you {" "}
             <span className='bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-[length:100%_6px] bg-no-repeat bg-bottom'>
-
               need to know
             </span>
           </p>
-
           <p className="mt-6 text-lg leading-8 text-gray-600">
             MASCAA is a comprehensive human confidence analysis platform. This works in evaluating the confidece of the user taking a test through video and audio .
           </p>
