@@ -134,7 +134,7 @@ export const Footer = () => {
           &copy; made with {"❤️ by "}
           <a
             target="_blank"
-            href="https://github.com/leoMirandaa"
+            href="https://linktr.ee/jayanthmkv"
             className="text-primary transition-all border-primary hover:border-b-2"
           >
             MASCAA@2024
