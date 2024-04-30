@@ -50,7 +50,7 @@ const Header = () => {
        className=" my-10"
       >
       <Link target="__blank" href={"https://cal.com/lurw-org/mascaa-onboarding-15-min-meeting"}>
-      <Button className="p-5 lg:text-xl bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 ">
+      <Button className="p-5 font-bold lg:text-xl bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 ">
         Book a FREE Demo
       </Button>
       </Link>
