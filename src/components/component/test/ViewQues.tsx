@@ -116,11 +116,11 @@ const EditQues = ({ data, id,testId }: any) => {
 
 
     return (
-        <div className="bg-white py-24 sm:py-10">
+        <div className=" py-24 sm:py-10">
 
         <div className="mx-auto max-w-7xl px-6 pb-3 lg:px-8 md:items-center gap-10 flex flex-col lg:flex-row  md:justify-between">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Your Test Answers</h2>
           {/* <p className="mt-2 text-lg leading-8 text-gray-600">View Tests and Evaluate Confidence </p> */}
         </div>
@@ -171,7 +171,7 @@ const EditQues = ({ data, id,testId }: any) => {
                                         </div>
 
                                         <DialogTrigger className='block mx-auto p-4'>
-                                            <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                                            <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                                                 <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                                     Sub Questions
                                                 </span>

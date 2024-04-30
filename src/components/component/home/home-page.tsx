@@ -9,6 +9,7 @@ import { DrawerDemo } from "./mobile-nav"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Navbar from "./Navbar"
+import { ModeToggle } from "@/components/theme/ModeToggle"
 
 export function HomePage({ children }: { children: ReactNode }) {
   const cuser:any = cookies().get('s_user') || "{value:'{}'}";
@@ -24,12 +25,12 @@ export function HomePage({ children }: { children: ReactNode }) {
           <div className="flex h-[100px] items-center border-b px-6">
             <Link className="flex items-center gap-2 font-semibold" href="/">
               <Package2Icon className="h-6 w-6" />
-              <span className="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">MASCCA</span>
+              <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-xl">MASCCA</span>
             </Link>
-            <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
-              <BellIcon className="h-4 w-4" />
+            <div className="ml-auto h-8 w-8" >
+              <ModeToggle  />
               <span className="sr-only">Toggle notifications</span>
-            </Button>
+            </div>
           </div>
           <Navbar />
           <div className="mt-auto p-4">
@@ -111,8 +112,8 @@ export function HomePage({ children }: { children: ReactNode }) {
             <span className="sr-only">Home</span>
           </Link>
           <div className="w-full flex-1 h-full ">
-            <h1 className=" mt-7 md:hidden block text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">MASCAA</h1>
-            <h1 className="mt-9  hidden md:block text-end text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Member Dashboard</h1>
+            <h1 className=" mt-7 md:hidden block text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">MASCAA</h1>
+            <h1 className="mt-9  hidden md:block text-end text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl">Member Dashboard</h1>
           </div>
           <DrawerDemo>
           <div className="p-4">

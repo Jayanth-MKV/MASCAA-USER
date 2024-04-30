@@ -74,6 +74,7 @@ src={stud}
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Pricing">
           <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="/pricing">Hobby</HoveredLink>
             <HoveredLink href="/pricing">Individual</HoveredLink>
             <HoveredLink href="/pricing">Team</HoveredLink>
             <HoveredLink href="/pricing">Enterprise</HoveredLink>

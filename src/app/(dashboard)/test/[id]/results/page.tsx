@@ -23,7 +23,7 @@ const Results = async ({ params, searchParams }: {
 }) => {
 
   const data = await getSubResults(params?.id);
-  // console.log(data);
+  console.log(data);
   const results = data["eval"]["results"];
   // console.log(results);
 

@@ -22,18 +22,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} overflow-hidden`}>
-        <Providers>
         <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
+        <Providers>
         {children}
         <Toaster />
-        </ThemeProvider>
         <T />
         </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -22,9 +22,9 @@ import { departments } from "@/utils/constants"
 import { Register } from "@/types/types"
 
 const FormSchema = z.object({
-  roll: z.string().min(10, { message: 'must be 10 characters' }).max(10, { message: 'roll number must be 10 characters' }).toUpperCase().refine(async (value) => {
+  roll: z.string().min(10, { message: 'must be 10 characters' }).max(10, { message: 'username must be 10 characters' }).toUpperCase().refine(async (value) => {
     return !await checkRoll({ roll: value });
-  }, 'Roll already exists'),
+  }, 'username already exists'),
   email: z.string().min(1, { message: 'Email is required' }).email('Invalid email address').refine(async (value) => {
     return !await checkEmail({ email: value });
   }, 'Email already exists'),
@@ -69,7 +69,7 @@ export function UserRegister() {
         title: "success",
         description: "Registration Successful"
       })
-      window.location.href = `${FRONTEND_URL}/auth/signin?roll=${data?.user?.roll}`;
+      window.location.href = `${FRONTEND_URL}/auth/signin?roll=${data?.roll}`;
     },
     (e: any) => {
       toast({
@@ -86,7 +86,7 @@ export function UserRegister() {
       email: data?.email,
       password: data.password,
       roll: data.roll,
-      department: department
+      department: department || "NONE"
     } as any
     mutate(payload);
     console.log("submitted data", payload);
@@ -95,7 +95,7 @@ export function UserRegister() {
   if (isPending) {
     return (<div className="h-full w-full flex-col flex items-center gap-5 justify-center">
       <Package2Icon className="h-6 w-6" />
-      <span className="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">MASCCA</span>
+      <span className="text-xl font-bold tracking-tight  sm:text-xl">MASCCA</span>
       <LoadingSpinner />
     </div>)
   }
@@ -121,7 +121,7 @@ export function UserRegister() {
       <CardContent className="space-y-4">
         <form onSubmit={handleSubmit(onSubmit as any)}>
           <div className="space-y-2">
-            <Label htmlFor="name">Id / Roll</Label>
+            <Label htmlFor="name">Username</Label>
             <Input {...register("roll")} />
             {errors?.roll && <Badge variant="destructive">{errors?.roll?.message}</Badge>}
           </div>
@@ -130,10 +130,10 @@ export function UserRegister() {
             <Input {...register("email")} placeholder="m@example.com" type="email" />
             {errors?.email && <Badge variant="destructive">{errors?.email?.message}</Badge>}
           </div>
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label htmlFor="department">Department</Label>
             <DropDown departments={departments} value={department} setValue={(e:any) => setdepartment(e)} />
-          </div>
+          </div> */}
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <Input {...register("password")} type="password" />

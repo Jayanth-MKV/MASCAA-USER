@@ -79,10 +79,10 @@ const Page = () => {
   </BreadcrumbList>
 </Breadcrumb>
 
-      <div className="bg-white py-24 sm:py-10">
+      <div className="bg-white dark:bg-background py-24 sm:py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 md:items-center gap-10 flex flex-col lg:flex-row  md:justify-between">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Your Tests</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Your Tests</h2>
             <p className="mt-2 text-lg leading-8 text-gray-600">View Tests and Evaluate Confidence </p>
           </div>
           <div className='max-w-[200px]'>

@@ -87,7 +87,7 @@ const Newtest = () => {
   if (isPending) {
     return (<div className="h-full w-full flex-col flex items-center gap-5 justify-center">
       <Package2Icon className="h-6 w-6" />
-      <span className="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">MASCCA</span>
+      <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-xl">MASCCA</span>
       <LoadingSpinner />
     </div>)
   }
@@ -108,7 +108,7 @@ const Newtest = () => {
 </Breadcrumb>
       <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-center py-10 gap-10">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Take Test</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Take Test</h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">Take Tests and Evaluate Confidence </p>
         </div>
         <Card className="w-[350px]">

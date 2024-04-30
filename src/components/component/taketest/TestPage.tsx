@@ -13,7 +13,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Separator } from '@/components/ui/separator';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react'
 import QuestionTimer from './QuestionTimer';
 import { Input } from '@/components/ui/input';
@@ -39,8 +39,12 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
   const handleQuestionChange = useCallback(
     () => {
       console.log(index)
-      if (index != testSubmission.answers.length - 1)
+      if (index != testSubmission.answers.length - 1){
         setindex(index + 1);
+      }
+      else{
+        handleSubmitNext();
+      }
       setTimeLeft(TIME/3)
       setsub({ type: "TEXT" });
     },
@@ -93,9 +97,15 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
     const data = getLocal();
     console.log(data)
     // const data = JSON.parse(d);
-    setindex(data?.index || 0);
-    setsub({ type: data?.subType?data.subType: "TEXT" });
-    setTimeLeft(data?.time?data?.time : TIME/3);
+    if(data?.index==(testSubmission.answers.length-1) && data?.subType=="AUDIO"){
+      handleSubmitNext();
+      router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)
+    }
+    else{
+      setindex(data?.index || 0);
+      setsub({ type: data?.subType?data.subType: "TEXT" });
+      setTimeLeft(data?.time?data?.time : TIME/3);
+    }
   }, []);
 
 
@@ -115,11 +125,16 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
             setsub({ type: "AUDIO" });
             return 2*TIME/3; // Reset time left for the new question
           }
-          if(sub.type=="AUDIO"){
+          if(sub.type=="AUDIO" && index!=(testSubmission.answers.length-1)){
             setsub({ type: "TEXT" });
             clearInterval(interval);
             handleQuestionChange(); // Change to the next question
             return TIME/3; // Reset time left for the new question
+          }
+          if( index==(testSubmission.answers.length-1)  && sub.type=="AUDIO" ){
+            console.log("IT cleared test completed")
+            handleSubmitNext();
+            clearInterval(interval);
           }
         } else {
           return prevTimeLeft - 1;
@@ -179,21 +194,25 @@ const [lastQuesFilled, setLastQuesFilled] = useState(false);
 
   // handles if time is completed
   useEffect(() => {
-    if (timeLeft == 0 && index==(testSubmission.answers.length-1)) {
+    if (timeLeft <1  && index==(testSubmission.answers.length-1)) {
       console.log("submitted");
-      handleSubmit();
-      window.localStorage.removeItem("stopped-area");
-      router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)
+      handleSubmitNext();
       return
     }
+
     if (timeLeft < 3) {
       if (sub?.type == "TEXT") {
-        handleTextAnswer(TIME/3 - timeLeft);
-        setTimeLeft(0);
+        handleTextNext();
+        return;
       }
       if (sub?.type == "AUDIO") {
-        handleAudioAnswer(AudioOp);
-        setAudioOp({ text: '', file: null });
+        if(index==(testSubmission.answers.length-1))
+         {
+        //    handleAudioLast();
+        //  } 
+        // else{
+          handleAudioNext();
+        }
       }
     }
   }, [timeLeft])

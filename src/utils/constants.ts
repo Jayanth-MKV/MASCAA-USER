@@ -15,7 +15,7 @@ export   const steps = [
  
   {
     selector: '#tour-step-test',
-    content: 'See all the test you took - place for your achievements 🏆  ',
+    content: 'See all the test you took - place for your achievements 🏆  ', 
   },
  
   {

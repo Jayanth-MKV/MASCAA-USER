@@ -94,6 +94,11 @@ const [stt, setstt] = useState("");
 
   useEffect(() => {
     getMicrophonePermission();
+    const audioBlob = new Blob(audioChunks, { type: mimeType });
+      var wavefilefromblob = new File([audioBlob], 'filename.wav',{type: 'audio/wav' });
+      console.log(wavefilefromblob);
+      setAudioOp({...AudioOp,file:wavefilefromblob});  
+      setstt("")
   }, [])
 
 
@@ -104,6 +109,7 @@ const [stt, setstt] = useState("");
       console.log(wavefilefromblob);
       setAudioOp({...AudioOp,file:wavefilefromblob});  
     }
+    console.log(AudioOp)
   }, [audioChunks])
 
 

@@ -1,21 +1,25 @@
 import Contact from "@/components/component/home/Contact";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { FRONTEND_URL } from "@/utils/constants";
 import Link from "next/link";
 import React from "react";
 
 const PricingCard = ({ title, description, price, features,link,button,index }:any) => {
   return (
-    <Card className={"p-5 flex flex-col "+(index==1?"  border-2 border-orange-400":"p-5")}>
+    <Card className={"mx-auto p-5 flex flex-col w-[300px] "+(index==1?"  border-2 border-orange-400":" ")}>
       <h3 className="mb-4 text-xl font-semibold">{title}</h3>
       <p className="font-light text-gray-500 sm:text-md dark:text-gray-400">{description}</p>
       <div className="flex justify-center items-baseline my-8">
         <span className="mr-2 text-4xl font-extrabold">{price}</span>
-       {index==0 ?
+       
+       {index==1 && !(index==0) ?
        <span className="text-gray-500 dark:text-gray-400">/Test</span>
        :
-       <span className="text-gray-500 dark:text-gray-400">/Month</span>
+       !(index==0)?
+       <span className="text-gray-500 dark:text-gray-400">/Month</span>:<></>
       }
+
       </div>
       <ul role="list" className="mb-8 space-y-4 text-left">
         {features.map((feature:string, index:number) => (
@@ -36,17 +40,20 @@ const PricingCard = ({ title, description, price, features,link,button,index }:a
           </li>
         ))}
       </ul>
-      {/* <Contact> */}
       
-        {/* <Link
-         href={link}
-        > */}
-        <>
+       {!(index==0) && <div className="mt-auto">
         <Contact name={button} />
-{/* {button} */}
-        </>
-        {/* </Link> */}
-          {/* </Contact> */}
+        </div>}
+
+       {index==0 && <Link
+         href={`${FRONTEND_URL}/auth/signin`}
+         className="mt-auto"
+        >
+<Button 
+       className="w-full mt-auto">
+            {button}
+      </Button>
+        </Link>}
     </Card>
   );
 };
@@ -54,8 +61,20 @@ const PricingCard = ({ title, description, price, features,link,button,index }:a
 const PricingSection = () => {
   const pricingOptions = [
     {
+      title: "Students/Learners",
+      description: "free for learners/students to evaluate their confidence",
+      price: "FREE",
+      features: [
+        "Take Free Tests & Evaluate",
+        "Individual configuration",
+        "No setup, or hidden fees",
+      ],
+      link:"",
+      button:"Start for FREE"
+    },
+    {
       title: "Individual",
-      description: "Best for Students , teachers , recruiters for personal use.",
+      description: "Best for teachers , recruiters for personal use.",
       price: "$1",
       features: [
         "Per Test",
@@ -104,7 +123,7 @@ const PricingSection = () => {
           <p className="mb-5 font-light text-gray-500 sm:text-md dark:text-gray-400">
             Here at MASCAA we focus on unlocking long-term value and strive to enhance customer experience.</p>
         </div>
-        <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+        <div className="space-y-8 lg:grid lg:grid-cols-4 sm:gap-6 xl:gap-10 lg:space-y-0 ">
           {pricingOptions.map((option, index) => (
             <PricingCard key={index} {...option} index={index} />
           ))}

@@ -18,7 +18,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 
 const FormSchema = z.object({
-  roll: z.string().min(10, { message: 'roll number must be 10 characters' }).max(10, { message: 'roll number must be 10 characters' }).toUpperCase(),
+  roll: z.string().min(10, { message: 'username must be 10 characters' }).max(10, { message: 'username must be 10 characters' }).toUpperCase(),
   password: z.string()
 })
 
@@ -72,7 +72,7 @@ export function UserLogin() {
   if (isPending) {
     return (<div className="h-full w-full flex-col flex items-center gap-5 justify-center">
       <Package2Icon className="h-6 w-6" />
-      <span className="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">MASCCA</span>
+      <span className="text-xl font-bold tracking-tight  sm:text-xl">MASCCA</span>
       <LoadingSpinner />
     </div>)
   }
@@ -99,7 +99,7 @@ export function UserLogin() {
                     name="roll"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className='text-lg font-bold'>Roll</FormLabel>
+                            <FormLabel className='text-lg font-bold'>Username</FormLabel>
                             <FormControl>
                             <Input {...field} placeholder="Enter your roll" />
                             </FormControl>

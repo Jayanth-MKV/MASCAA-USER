@@ -41,11 +41,11 @@ const Home = () => {
   ]
 
   return (
-    <div className="bg-white py-24 sm:py-10">
+    <div className="bg-white dark:bg-background py-24 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Welcome Member !</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="text-base font-semibold leading-7 text-indigo-600 dark:text-rose-500">Welcome Member !</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
             Everything you {" "}
             <span className='bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-[length:100%_6px] bg-no-repeat bg-bottom'>
               need to know
