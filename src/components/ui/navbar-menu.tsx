@@ -2,7 +2,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 const transition = {
   type: "spring",
@@ -86,7 +87,7 @@ export const ProductItem = ({
   title: string;
   description: string;
   href: string;
-  src: string;
+  src: string | StaticImport;
 }) => {
   return (
     <Link href={href} className="flex space-x-2">
