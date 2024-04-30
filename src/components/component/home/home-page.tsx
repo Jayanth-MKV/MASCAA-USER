@@ -125,7 +125,7 @@ export function HomePage({ children }: { children: ReactNode }) {
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-              <Link href="/pricing">
+              <Link href="/user/pricing">
                 <Button size="sm" className="w-full">
                   Upgrade
                 </Button>

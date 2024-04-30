@@ -97,7 +97,8 @@ export function middleware(req: NextRequest) {
       !tokenFromOauth ||
       !tokenData) &&
       !(req.nextUrl.pathname.length==1)&&
-    !req.nextUrl.pathname.startsWith("/auth")
+    !req.nextUrl.pathname.startsWith("/auth") &&
+    !req.nextUrl.pathname.startsWith("/pricing") 
   ) {
     // console.log("cant enter homepage ");
     return NextResponse.redirect(new URL("/auth/signin", req.url));

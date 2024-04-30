@@ -5,7 +5,7 @@ import Video from "./Video";
 import HowItWorks from "./HowItWorks";
 import { AnimatedListDemo } from "./AnimList";
 import { Footer } from "./Footer";
-import PricingSection from "@/app/(dashboard)/pricing/page";
+import PricingSection from "@/app/(dashboard)/user/pricing/page";
 
 const LandingPage = () => {
   return (
@@ -15,16 +15,22 @@ const LandingPage = () => {
 <HeroHighlight1>
   <Video />
 </HeroHighlight1>
-<div className="my-20"></div>
+<div className="h-[100px]"></div>
+<div className="h-[100px]"></div>
+
 {/* <HeroHighlight1>
 </HeroHighlight1> */}
 <HeroHighlight1 >
-  <div className="flex justify-center relative">
+  <div className="flex flex-col  lg:flex-row justify-center relative">
   <HowItWorks />
   <AnimatedListDemo />
+<div className="h-[100px]"></div>
   </div>
 </HeroHighlight1>
-<div className="my-20"></div>
+<br />
+<div className="lg:hidden h-[100px]"></div>
+<div className="h-[100px] lg:hidden "></div>
+<div className="h-[100px]"></div>
 <div className="relative z-59">
   <PricingSection />
 </div>

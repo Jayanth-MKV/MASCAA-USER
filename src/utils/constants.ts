@@ -5,6 +5,7 @@ export const BACKEND_URL="https://mascca-backend.onrender.com"
 export const FRONTEND_URL="https://mascaa-user.vercel.app"
 export const PUBLISH_URL="https://mascaa-user.vercel.app"
 export const BASE_URL=BACKEND_URL
+export const FRONTEND_URLI="https://mascaa-instructor.vercel.app"
 
 export   const steps = [
   {

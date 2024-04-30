@@ -4,6 +4,20 @@ import { HeroHighlight, Highlight } from '@/components/ui/hero-highlight';
 import { OrbitingCirclesDemo } from "@/components/icons/OrbitIcon";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import stud from "@/img/student.jpg"
+import inst from "@/img/instructor.jpg"
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { ProductItem } from "@/components/ui/navbar-menu";
+import { FRONTEND_URL, FRONTEND_URLI } from "@/utils/constants";
+
 
 const Header = () => {
   return (
@@ -46,11 +60,34 @@ const Header = () => {
       whileTap={{ scale: 0.9 }}
        className=" my-10 ml-5"
       >
-            <Link href={"/auth/signin"}>
-      <Button className="p-5 lg:text-xl bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 ">
-        Login
-      </Button>
-      </Link>
+
+      <Dialog>
+  <DialogTrigger className="p-2 rounded-md text-sm bg-gradient-to-r from-indigo-500 via-fuchsia-500  to-rose-500 ">
+        Get Started
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Login As</DialogTitle>
+      <DialogDescription>
+      <div className=" text-sm grid grid-cols-1 gap-10 p-4">
+            <ProductItem
+              title="Instructor/Recruiter"
+              href={`${FRONTEND_URLI}/auth/signin`}
+src={inst}
+              description="Create & Evaluate Tests like never before."
+            />
+            <ProductItem
+              title="Individual"
+              href={`${FRONTEND_URL}/auth/signin`}
+src={stud}
+              description="Evaluate your confidence and get industry ready"
+            />
+          </div>
+      </DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>
+
       </motion.div>
       </div>
 
