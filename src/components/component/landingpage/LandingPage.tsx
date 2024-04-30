@@ -1,4 +1,4 @@
-import { HeroHighlight, HeroHighlight1 } from "@/components/ui/hero-highlight";
+import { HeroHighlight1 } from "@/components/ui/hero-highlight";
 import Header from "./Header";
 import { NavbarDemo } from "./Navbar";
 import Video from "./Video";

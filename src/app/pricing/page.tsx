@@ -1,4 +1,3 @@
-import Header from '@/components/component/landingpage/Header'
 import { NavbarDemo } from '@/components/component/landingpage/Navbar'
 import React from 'react'
 import PricingSection from '../(dashboard)/user/pricing/page'

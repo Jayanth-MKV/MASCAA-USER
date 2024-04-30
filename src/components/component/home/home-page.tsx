@@ -4,7 +4,7 @@ import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, Dropdown
 import { ReactNode } from "react"
 import { LogoutPopUp } from "../auth/logout-alert"
 import { cookies } from "next/headers"
-import { BellIcon, FileEditIcon, FileIcon, HomeIcon, Package2Icon, SearchIcon } from "../../icons/page"
+import { BellIcon, Package2Icon } from "../../icons/page"
 import { DrawerDemo } from "./mobile-nav"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
