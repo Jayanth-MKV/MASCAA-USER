@@ -8,9 +8,9 @@ export function middleware(req: NextRequest) {
   const tokenFromOauth = req.cookies.get("token");
   const tokenData = req.cookies.get("s_user");
 
-  console.log({
-    tokenData, token, tokenFromOauth
-  })
+  // console.log({
+  //   tokenData, token, tokenFromOauth
+  // })
 
   // console.log("inside middleware")
 

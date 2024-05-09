@@ -88,7 +88,7 @@ export function UserLogin() {
         <div className="space-y-2 text-center">
           <div className="mx-auto h-8" />
           <div className="space-y-2">
-            <h1 className="text-2xl font-bold">Welcome back</h1>
+            <h1 className="text-2xl font-bold">Test Taker Login</h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">Enter your credentials to access your account</p>
           </div>
         </div>
@@ -101,7 +101,7 @@ export function UserLogin() {
                         <FormItem>
                             <FormLabel className='text-lg font-bold'>Username</FormLabel>
                             <FormControl>
-                            <Input {...field} placeholder="Enter your roll" />
+                            <Input {...field} placeholder="Enter username" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -124,9 +124,9 @@ export function UserLogin() {
                     )}
                 />    
                 <div className="flex items-center space-x-2">
-              <Link className="text-sm underline" href="#">
+              {/* <Link className="text-sm underline" href="#">
                 Forgot password
-              </Link>
+              </Link> */}
             </div>
                       </div>
           <Button className="w-full" onClick={onSubmit} >Login</Button>

@@ -108,7 +108,7 @@ export function UserRegister() {
       <CardHeader className="space-y-2">
         <div className="space-y-2 text-center">
           <div className="space-y-2">
-            <h1 className="text-2xl font-bold">Create an account</h1>
+            <h1 className="text-2xl font-bold">Create a Test Taker account</h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Already have an account?
               <Link className="underline" href="#">
