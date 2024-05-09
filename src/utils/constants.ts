@@ -1,11 +1,10 @@
 // export const BACKEND_URL="http://localhost:8000"
 // export const FRONTEND_URL="http://localhost:3001"
-// export const PUBLISH_URL="http://localhost:3001"
 export const BACKEND_URL="https://mascca-backend.onrender.com"
-export const FRONTEND_URL="https://mascaa-user.vercel.app"
-export const PUBLISH_URL="https://mascaa-user.vercel.app"
+export const FRONTEND_URL="https://mascaa.eddrix.com"
+export const PUBLISH_URL=FRONTEND_URL;
 export const BASE_URL=BACKEND_URL
-export const FRONTEND_URLI="https://mascaa-instructor.vercel.app"
+export const FRONTEND_URLI="https://mascaa-instructor.eddrix.com"
 
 export   const steps = [
   {
