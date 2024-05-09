@@ -11,7 +11,7 @@ const Video = () => {
     <>
 <div className="mx-auto max-w-2xl lg:text-center mb-5 text-center">
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            MASCAA is a comprehensive human confidence analysis platform. This works in evaluating the confidece of the user taking a test through video and audio .
+            MASCAA is a comprehensive human confidence analysis platform. This works in evaluating the confidence of the user taking a test through video and audio .
           </p>
         </div>
       <div className="p-1 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 ">
