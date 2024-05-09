@@ -14,7 +14,7 @@ const PricingCard = ({ title, description, price, features,link,button,index }:a
         <span className="mr-2 text-4xl font-extrabold">{price}</span>
        
        {index==1 && !(index==0) ?
-       <span className="text-gray-500 dark:text-gray-400">/Test</span>
+       <span className="text-gray-500 dark:text-gray-400">/Month</span>
        :
        !(index==0)?
        <span className="text-gray-500 dark:text-gray-400">/Month</span>:<></>
@@ -80,7 +80,8 @@ const PricingSection = () => {
         "Per Test",
         "Individual configuration",
         "No setup, or hidden fees",
-        "Test size: 50 users",
+        "Users can retry 5 tests ",
+        "Instructors Test size will be 50 users",
       ],
       link:"",
       button:"Start Just Now"
