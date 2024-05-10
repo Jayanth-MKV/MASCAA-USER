@@ -17,6 +17,7 @@ const LandingPage = () => {
 </HeroHighlight1>
 <div className="h-[100px]"></div>
 <div className="h-[100px]"></div>
+<div className="h-[100px]"></div>
 
 {/* <HeroHighlight1>
 </HeroHighlight1> */}
