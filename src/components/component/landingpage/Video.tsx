@@ -14,13 +14,13 @@ const Video = () => {
             MASCAA is a comprehensive human confidence analysis platform. This works in evaluating the confidence of the user taking a test through video and audio .
           </p>
         </div>
-      <div className="p-1 bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 ">
+      <div className="p-1  bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 ">
       {
         play &&
 <div 
    className="flex justify-center py-5 "
    >
-    <iframe width="auto" height="515" className="md:w-[860px]"
+    <iframe width="auto" height="315" className="md:w-[860px]"
     src="https://www.youtube.com/embed/3mBNmkHbHKs?si=GkpuYh2WD89gfN3o" 
     title="MASCCA " allow=" autoplay;" referrerPolicy="strict-origin-when-cross-origin" 
     allowFullScreen>
@@ -39,7 +39,7 @@ const Video = () => {
     src={tb}
     alt="Mascaa Logo"
     className="dark:invert"
-    width="860" height="515"
+    width="860" height="315"
     priority
     />
     </div>
