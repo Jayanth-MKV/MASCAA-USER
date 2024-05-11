@@ -15,6 +15,12 @@ const Home = () => {
 
   const features = [
     {
+      name: 'Evaluate Yourself',
+      description:
+        'Evaluate your confidence in a particular topic',
+      link: "/test/available"
+    },
+    {
       name: 'Take Test',
       description:
         'Take a Test',
@@ -26,12 +32,6 @@ const Home = () => {
     //     'The Test results display the confidence analysis of the users over that subject',
     //   link: "/test"
     // },
-    {
-      name: 'Evaluate Yourself',
-      description:
-        'Evaluate your confidence in a particular topic',
-      link: "/test/available"
-    },
     // {
     //   name: 'Advanced security',
     //   description:
@@ -52,12 +52,14 @@ const Home = () => {
             </span>
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            MASCAA is a comprehensive human confidence analysis platform. This works in evaluating the confidece of the user taking a test through video and audio .
+            MASCAA is a comprehensive human confidence analysis platform. This works in evaluating the confidence of the user taking a test through video and audio .
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
             {features.map((feature, i) => (
+            <>
+                    {<Link href={feature.link} className='cursor-pointer'>
               <div key={feature.name} className="relative sm:p-2 rounded-xl  bg-gradient-to-tl  from-[#9CECFB] via-[#65C7F7] to-[#0052D4]">
                 <Card className='h-full flex flex-col justify-between '>
                   <CardHeader>
@@ -66,12 +68,12 @@ const Home = () => {
                   </CardHeader>
 
                   <CardFooter className='mt-auto p-3 items-center flex justify-end'>
-                    {<Link href={feature.link}>
                       <DoubleArrowRightIcon />
-                    </Link>}
                   </CardFooter>
                 </Card>
               </div>
+                    </Link>}
+            </>
             ))}
           </dl>
         </div>
