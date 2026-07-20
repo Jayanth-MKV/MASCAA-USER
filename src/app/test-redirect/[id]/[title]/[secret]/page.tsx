@@ -1,7 +1,6 @@
 import ViewTest from '@/components/component/test/TestView';
 import { getTestU } from '@/hooks/server/test/url';
 import React from 'react'
-import { cookies } from 'next/headers'
 import Roadmap from '@/components/component/test/Roadmap';
 import { BellIcon, Package2Icon } from '@/components/icons/page';
 import { Button } from '@/components/ui/button';
@@ -18,16 +17,7 @@ const page = async ({
     searchParams?: { [key: string]: string | string[] | undefined };
   }) => {
 
-    console.log({id:params.id,title:params.title,secret:params.secret})
-    const test = await getTestU(params.id);
-    console.log(test)
-
-
-    const cookieStore = cookies()
-    const s_user = cookieStore.get('s_user')
-    console.log(s_user)
-    const user = JSON.parse(s_user?.value||"{}")
-    console.log(user)
+    const test = await getTestU(params.id, params.secret);
 
 
   return (
@@ -71,7 +61,7 @@ const page = async ({
         <Roadmap />
         </div>
         <div>
-      <ViewTest test={test} userId={user?.id} />
+      <ViewTest test={test} />
         </div>
 
 

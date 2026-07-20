@@ -13,7 +13,7 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 import { useApiSend } from '@/hooks/network/rq';
 import { createSubmission } from '@/hooks/server/test/results';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 
@@ -23,8 +23,6 @@ import React, { useEffect, useState } from 'react'
 const Page = () => {
 
   const params = useParams()
-  const search = useSearchParams()
-  const userId = search.get('userId')
   // console.log(params)
   // console.log(search.get('userId'))
   const [isOk, setisOk] = useState(false);
@@ -69,7 +67,6 @@ const Page = () => {
 const { mutate, isPending } = useApiSend(
   createSubmission,
   (data: any) => {
-      console.log(data)
       toast({
           title: "success",
           description: "Test Navigated!"
@@ -78,7 +75,6 @@ const { mutate, isPending } = useApiSend(
 
   },
   (e: any) => {
-      console.log(e)
       toast({
           variant: "destructive",
           title: "Test Already Taken - contact admin",
@@ -93,9 +89,8 @@ if (isPending) {
 
 
 const onSubmit = async () => {
-  console.log(params)
-  if (params?.id && userId) {
-      mutate({ "testId": params?.id,"userId":userId } as any);
+  if (params?.id) {
+      mutate({ "testId": params?.id } as any);
   }
 }
 

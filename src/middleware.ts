@@ -16,7 +16,6 @@ export function middleware(req: NextRequest) {
 
 
   if (req.nextUrl.pathname.startsWith("/oauth")) {
-    console.log("inside oauth")
     const oAuthToken = req.nextUrl.searchParams.get("token") || "";
     const user = req.nextUrl.searchParams.get("s_user") || "";
     // console.log(oAuthToken)
@@ -30,21 +29,31 @@ export function middleware(req: NextRequest) {
         name: "token",
         value: oAuthToken.toString(),
         maxAge: 60 * 60 * 24 * 6,
+        httpOnly: true,
+        secure: req.nextUrl.protocol === "https:",
+        sameSite: "lax",
+        path: "/",
       });
 
       response.cookies.set({
         name: "s_user",
         value: user.toString(),
         maxAge: 60 * 60 * 24 * 6,
+        httpOnly: true,
+        secure: req.nextUrl.protocol === "https:",
+        sameSite: "lax",
+        path: "/",
       });
+
+      response.headers.set("Cache-Control", "no-store");
+      response.headers.set("Referrer-Policy", "no-referrer");
 
       return response;
     }
   }
 
 
-  if (req.url.includes("signout")) {
-    console.log("inside signout")
+  if (req.nextUrl.pathname.startsWith("/auth/signout")) {
 
     const response = NextResponse.redirect(new URL('/auth/signin', req.url))
 
@@ -75,12 +84,6 @@ export function middleware(req: NextRequest) {
   //   console.log("Unauthorized access, redirecting to sign-in page");
   //   return NextResponse.redirect(new URL("/auth/signin", req.url));
   // }
-
-  if ((!token && !tokenData) && ((token && !tokenData) || (!token && tokenData))) {
-    console.log("inside no token")
-
-    return NextResponse.redirect(new URL("/auth/signout", req.url));
-  }
 
   // // Example: Check if the user has access to a specific route
   // if (

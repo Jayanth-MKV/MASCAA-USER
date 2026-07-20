@@ -19,8 +19,7 @@ export const request = async (options: any) => {
   client.interceptors.response.use(
     response => response,
     error => {
-      console.log(error.response.status)
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         return redirect(`${FRONTEND_URL}/auth/signout`)
       }
       return Promise.reject(error);

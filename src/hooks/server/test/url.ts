@@ -37,11 +37,10 @@ const p = await data.map((test:{title:string,_id:string})=>{
 return p;
 };
 
-export const getTestU = async (id:string) => {
-  console.log("testU")
+export const getTestU = async (id:string, secret:string) => {
   return await request({
     method: "GET",
-    url: `${BASE_URL}/user/${id}`,
+    url: `${BASE_URL}/user/${id}?secret=${encodeURIComponent(secret)}`,
   });
 };
 
@@ -67,8 +66,6 @@ export const submitAudioTrans = async (data: any ) => {
 
 export const submitAudio = async (data: any ) => {
 
-  const s = await submitAudioTrans({...data});
-  console.log(data)
   const {formData,testId,index,id} = data;
   return await request({
     method: "POST",
@@ -78,7 +75,6 @@ export const submitAudio = async (data: any ) => {
 };
 
 export const submitText = async (data: any ) => {
-  console.log(data)
   return await request({
     method: "POST",
     url: `submission/text`,
@@ -87,7 +83,6 @@ export const submitText = async (data: any ) => {
 };
 
 export const Taketest = async (data: any ) => {
-  console.log(data)
   return await request({
     method: "POST",
     url: `${BASE_URL}/taketest`,
@@ -97,7 +92,6 @@ export const Taketest = async (data: any ) => {
 
 
 export const submitTest = async (data: any ) => {
-  console.log(data)
   return await request({
     method: "POST",
     url: `submission/test/${data.id}`,
@@ -128,7 +122,6 @@ export const getAllAvailableTests = async () => {
     method: "GET",
     url: `${BASE_URL}/all`,
   });
-  console.log(d)
   return d;
 };
 

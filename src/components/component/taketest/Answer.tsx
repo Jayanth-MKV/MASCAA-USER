@@ -47,14 +47,6 @@ const [stt, setstt] = useState("");
 
   
   useEffect(() => {
-    if (transcript) {
-      console.log('Partial transcript:', transcript);
-    }
-    
-    if (finalTranscript) {
-      console.log('Final transcript:', finalTranscript);
-      // Process the final transcript
-    }
     setstt(transcript);
     setAudioOp({
       ...AudioOp,
@@ -96,7 +88,6 @@ const [stt, setstt] = useState("");
     getMicrophonePermission();
     const audioBlob = new Blob(audioChunks, { type: mimeType });
       var wavefilefromblob = new File([audioBlob], 'filename.wav',{type: 'audio/wav' });
-      console.log(wavefilefromblob);
       setAudioOp({...AudioOp,file:wavefilefromblob});  
       setstt("")
   }, [])
@@ -106,10 +97,8 @@ const [stt, setstt] = useState("");
     if(audioChunks.length!=0){
       const audioBlob = new Blob(audioChunks, { type: mimeType });
       var wavefilefromblob = new File([audioBlob], 'filename.wav',{type: 'audio/wav' });
-      console.log(wavefilefromblob);
       setAudioOp({...AudioOp,file:wavefilefromblob});  
     }
-    console.log(AudioOp)
   }, [audioChunks])
 
 
@@ -143,7 +132,6 @@ const [stt, setstt] = useState("");
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudio(audioUrl as any);
         var wavefilefromblob = new File([audioBlob], 'filename.wav',{ type: 'audio/wav' });
-        console.log(wavefilefromblob);
         setAudioOp({...AudioOp,file:wavefilefromblob}); 
         setAudioChunks([]);
       };

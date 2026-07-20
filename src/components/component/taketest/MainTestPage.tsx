@@ -60,14 +60,12 @@ const MainTestPage = ({ test, testSubmission }: any) => {
     const { mutate: mutateAudioTrans } = useApiSend(
         submitAudioTrans,
         (data: any) => {
-            console.log(data)
             toast({
                 title: "success",
                 description: "Audio transcript Submitted!"
             })
         },
         (e: any) => {
-            console.log(e)
             toast({
                 variant: "destructive",
                 title: "cannot submit audio transcript",
@@ -79,14 +77,12 @@ const MainTestPage = ({ test, testSubmission }: any) => {
     const { mutate: mutateAudio } = useApiSend(
         submitAudio,
         (data: any) => {
-            console.log(data)
             toast({
                 title: "success",
                 description: "Audio Submitted!"
             })
         },
         (e: any) => {
-            console.log(e)
             toast({
                 variant: "destructive",
                 title: "cannot submit audio questions",
@@ -100,14 +96,12 @@ const MainTestPage = ({ test, testSubmission }: any) => {
     const { mutate: mutateText } = useApiSend(
         submitText,
         (data: any) => {
-            console.log(data)
             toast({
                 title: "success",
                 description: "answer Submitted!"
             })
         },
         (e: any) => {
-            console.log(e)
             toast({
                 variant: "destructive",
                 title: "cannot submit answer ",
@@ -120,14 +114,12 @@ const MainTestPage = ({ test, testSubmission }: any) => {
     const { mutate: mutateSubmit } = useApiSend(
         submitTest,
         (data: any) => {
-            console.log(data)
             toast({
                 title: "success",
                 description: "Test Submitted!"
             })
         },
         (e: any) => {
-            console.log(e)
             toast({
                 variant: "destructive",
                 title: "cannot submit test ",
@@ -142,8 +134,6 @@ const MainTestPage = ({ test, testSubmission }: any) => {
         formData.append("text", data.text);
         formData.append("file", data.file, 'filename.wav');
 
-        console.log(formData.getAll('file'));
-        console.log(formData.getAll('text'));
 
         const payload = {
             formData: formData,
@@ -160,8 +150,6 @@ const MainTestPage = ({ test, testSubmission }: any) => {
             text: data.text,    
         }
 
-        console.log("subq  audio answer: ", payload);
-        console.log("subq  audio trans: ", tpayload);
         mutateAudio({ ...payload } as any);
         mutateAudioTrans({ ...tpayload } as any);
     }
@@ -175,7 +163,6 @@ const MainTestPage = ({ test, testSubmission }: any) => {
 
     const handleTextAnswer = (time: number) => {
         let emotion = ""
-        console.log(data)
         if (data.length != 0) {
             const emotionData = data[0]["expressions"];
             emotion = findMax(emotionData);
@@ -188,14 +175,12 @@ const MainTestPage = ({ test, testSubmission }: any) => {
             id: testSubmission._id,
             type: "TEXT",
         }
-        console.log("subq text answer: ", payload);
         setanswer("");
 
         mutateText({ ...payload } as any);
     }
 
     const handleSubmit = () => {
-        console.log("test submitted")
         window.localStorage.removeItem("stopped-area");
         mutateSubmit({id:testSubmission._id} as any);
     router.push(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure/${testSubmission._id}/submit`)

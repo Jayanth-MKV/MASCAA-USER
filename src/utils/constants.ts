@@ -1,10 +1,9 @@
-// export const BACKEND_URL="http://localhost:8000"
-// export const FRONTEND_URL="http://localhost:3001"
-export const BACKEND_URL="https://mascca-backend.onrender.com"
-export const FRONTEND_URL="https://mascaa.eddrix.com"
-export const PUBLISH_URL=FRONTEND_URL;
-export const BASE_URL=BACKEND_URL
-export const FRONTEND_URLI="https://mascaa-instructor.eddrix.com"
+export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8000";
+export const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL ?? "http://localhost:3001";
+export const PUBLISH_URL = FRONTEND_URL;
+export const BASE_URL = BACKEND_URL;
+export const FRONTEND_URLI = process.env.NEXT_PUBLIC_INSTRUCTOR_URL ?? "http://localhost:3000";
+export const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 
 export   const steps = [
   {

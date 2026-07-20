@@ -1,66 +1,37 @@
-import Loading from '@/app/(dashboard)/test/loading';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
-import { useApiSend } from '@/hooks/network/rq';
-import { getAudio, getSubQues } from '@/hooks/server/test/results'
-import React, { useState } from 'react'
+"use client";
 
-const GetAudioComponent = async ({filePath}:{filePath:string}) => {
+import { Button } from "@/components/ui/button";
+import { STORAGE_URL } from "@/utils/constants";
+import { useState } from "react";
 
-    const { toast } = useToast()
-    const [audio, setAudio] = useState("");
+const GetAudioComponent = ({ filePath }: { filePath: string }) => {
+  const [audio, setAudio] = useState("");
 
-    // mutate takes only one argument
-    // const { mutate, isPending } = useApiSend(
-    //     getAudio,
-    //     (data: any) => {
-    //         console.log(data)
-    //         // toast({
-    //         //     title: "success",
-    //         //     description: "Ques Updated"
-    //         // })
-    //         const audioUrl = URL.createObjectURL(data);
-    //     setAudio(audioUrl);
-
-    //     },
-    //     (e: any) => {
-    //         console.log(e)
-    //         toast({
-    //             variant: "destructive",
-    //             title: "Cannot get audio",
-    //             description: e?.message
-    //         })
-    //     },
-    // );
-
-    // if (isPending) {
-    //     return <Loading />
-    // }
-
-    // const onSubmit = async () => {
-    //     console.log(filePath);
-    //     mutate({ filePath:filePath.slice(6) });
-    // }
-
-
-    const onSubmit = () => {
-      setAudio(`https://fbemwizsznfouopebwvp.supabase.co/storage/v1/object/public/`+filePath);
+  const onSubmit = () => {
+    if (!STORAGE_URL) {
+      return;
     }
-    
 
-    return (
-        <>
-            {audio && (
-          <div className="audio-container">
-            <audio src={audio} controls></audio>
-          </div>
-        )}
-            {!audio &&
-                <Button className='h-5' onClick={onSubmit}>Get</Button>
-            }
-        </>
-    )
-}
+    const base = STORAGE_URL.replace(/\/$/, "");
+    const path = filePath.replace(/^\//, "");
+    setAudio(`${base}/${path}`);
+  };
 
-export default GetAudioComponent
+  return (
+    <>
+      {audio ? (
+        <div className="audio-container">
+          <audio src={audio} controls>
+            <track kind="captions" />
+          </audio>
+        </div>
+      ) : (
+        <Button className="h-5" disabled={!STORAGE_URL} onClick={onSubmit}>
+          Get
+        </Button>
+      )}
+    </>
+  );
+};
+
+export default GetAudioComponent;

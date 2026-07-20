@@ -64,7 +64,6 @@ export function UserRegister() {
   const { mutate, isPending } = useApiSend(
     registerUser,
     (data: any) => {
-      console.log(data)
       toast({
         title: "success",
         description: "Registration Successful"
@@ -89,7 +88,6 @@ export function UserRegister() {
       department: department || "NONE"
     } as any
     mutate(payload);
-    console.log("submitted data", payload);
   }
 
   if (isPending) {

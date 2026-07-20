@@ -44,13 +44,27 @@ export function UserLogin() {
 
   const { mutate, isError, isPending } = useApiSend(
     loginUser,
-    (data: any) => {
-      console.log(data)
+    async (data: any) => {
+      const response = await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: data?.access_token, user: data?.user }),
+      });
+
+      if (!response.ok) {
+        toast({
+          variant: "destructive",
+          title: "Cannot Login",
+          description: "The local session could not be created",
+        });
+        return;
+      }
+
       toast({
         title: "success",
         description: "Login Successful"
       })
-      window.location.href = `${FRONTEND_URL}/oauth?token=${data?.access_token}&s_user=${JSON.stringify(data?.user)}`;
+      window.location.href = `${FRONTEND_URL}/home`;
     },
     (e: any) => {
       toast({
@@ -63,7 +77,6 @@ export function UserLogin() {
   );
 
   const onSubmit = async (data:any) => {
-    console.log(data);
     mutate({
      ...data
     });

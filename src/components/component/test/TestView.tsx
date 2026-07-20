@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { FileTextIcon } from '@radix-ui/react-icons';
 
-const ViewTest = ({ test,userId }:any) => {
+const ViewTest = ({ test }:any) => {
 
   const router = useRouter();
   const { title, instructions, guidelines, tandc, testSecret, keywords, durationMinutes, startTime, endTime } = test;
@@ -29,7 +29,7 @@ const ViewTest = ({ test,userId }:any) => {
 
 
   const handleOnStartTest = () => {
-    router.replace(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure?userId=${userId}`);
+    router.replace(`/test-redirect/${test._id}/${test.title}/${test.testSecret}/secure`);
     router.refresh();
   }
   

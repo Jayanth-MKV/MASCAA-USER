@@ -8,7 +8,6 @@ import { Card } from '@/components/ui/card'
 import { getSubmission } from '@/hooks/server/test/results'
 import { getTestU } from '@/hooks/server/test/url'
 import React from 'react'
-import fs from "fs"
 
 
 
@@ -19,13 +18,9 @@ const page = async ({ params, searchParams }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
 
-  console.log(params)
-
 const testSubmission = await getSubmission(params.subId);
-console.log(testSubmission)
 
-const test = await getTestU(params.id);
-console.log(test)
+const test = await getTestU(params.id, params.secret);
 
 
 if(testSubmission.submitted==true){
